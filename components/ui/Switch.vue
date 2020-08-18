@@ -10,6 +10,7 @@
 
 <script>
 export default {
+  name: 'NuxpSwitch',
   data:()=>({
     checkbox : false
   }),

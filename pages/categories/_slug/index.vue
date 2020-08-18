@@ -13,7 +13,7 @@ import Loop from '@/components/widgets/Loop'
 import { mapState } from 'vuex'
 
 export default {
-    name: 'NuxpressoCategories',
+    name: 'NuxpCategories',
     components: { Loop },
     computed: {
         ...mapState ( ['settings','theme','categories'] ),

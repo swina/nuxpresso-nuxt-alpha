@@ -26,13 +26,19 @@ export default {
         content: process.env.npm_package_description || ""
       }
     ],
+    script : [
+      {
+        src: 'https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js'
+      }
+    ],
     link: [
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css?family=Work+Sans"//Staatliches"
+        href: "https://fonts.googleapis.com/css?family=Barlow+Condensed"//Work+Sans"//Staatliches"
       },
-      { rel: "stylesheet" ,
+      { 
+        rel: "stylesheet" ,
         href: "https://fonts.googleapis.com/icon?family=Material+Icons"
       }
 

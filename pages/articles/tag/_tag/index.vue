@@ -8,7 +8,7 @@
 import articlesTagQuery from '@/apollo/queries/article/articles-tag'
 import Loop from '@/components/widgets/Loop'
 export default {
-    name: 'NuxpressoArticlesTags',
+    name: 'NuxpArticlesTags',
     components: { Loop },
     apollo: {
         articles : {

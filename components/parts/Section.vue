@@ -1,26 +1,30 @@
 <template>
     <section :class="classe + ' nuxpresso-section'">
-        <Breadcrumb class="text-xs p-2"/>
+        <Breadcrumb class="text-xs p-2" v-if="$store.state.settings.breadcrumb"/>
         <nuxt/>
     </section>
 </template>
 
 <script>
 import Breadcrumb from '@/components/widgets/Breadcrumb'
+
 import { mapState } from 'vuex'
 export default {
-    name: 'NuxpressoSection',
+    name: 'NuxpSection',
     data:()=>({
         //theme: null,
         //sidebar: false
     }),
-    components: { Breadcrumb  },
+    components: { Breadcrumb },
     computed: {
-        ...mapState ( ['theme'] ),
+        ...mapState ( ['theme','settings'] ),
         classe(){
+            return this.$twColor ( this.theme.main_bg ) + ' ' + this.$twColor ( this.theme.primary_fg )
+            /*
             let classe = this.theme.main_bg ? this.$colorClass( 'bg' , this.theme.main_bg.color , this.theme.main_bg.density ) + ' ' + this.theme.main_bg.css : ''
             classe += this.theme.main_fg ?   + ' ' + this.$colorClass ( 'text' , this.theme.primary_fg.color , this.theme.primary_fg.density ) + ' ' + this.theme.primary_fg.css : ''
             return classe
+            */
             //let classe = this.layout.background.css ? this.layout.background.css + ' ' : 'bg-white '
             //classe += this.layout.primary.css ? this.layout.primary.css : ' text-black'
             //return classe

@@ -1,17 +1,17 @@
 <template>
-    <nuxpresso-switch style="transform:scale(.6)" label="Dark mode" @click="darkmode"/>
+    <nuxpresso-switch style="transform:scale(.6)" label="Dark mode" @click="setDarkmode"/>
 </template>
 <script>
 import NuxpressoSwitch from '@/components/ui/Switch'
 import { mapState } from 'vuex'
 export default {
-    name: 'NuxpressoDarkMode',
+    name: 'NuxpDark',
     components: { NuxpressoSwitch },
     computed: {
         ...mapState ( ['settings','theme','layout'] )
     },
     methods: {
-        darkmode(v){
+        setDarkmode(v){
             let theme = this.theme
             let settings = this.settings.darkmode_settings
             if ( v ){

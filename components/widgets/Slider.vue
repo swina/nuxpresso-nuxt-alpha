@@ -12,7 +12,7 @@
 </template>
 <script>
 export default {
-  name: "Slider",
+  name: "NuxpSlider",
   data:()=>({
       images: [],
       timer: null,

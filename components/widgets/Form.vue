@@ -13,7 +13,7 @@
 
 <script>
 export default {
-    name: 'NuxpressoForm',
+    name: 'NuxpForm',
     async mounted() {
         await this.$recaptcha.init()
     },

@@ -8,7 +8,7 @@
 <script>
 
 export default {
-    name: 'NuxpressoStartup',
+    name: 'NuxpStartup',
     data:()=>({
         show: false,
         menu: []

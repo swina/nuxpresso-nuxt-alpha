@@ -1,43 +1,43 @@
 <template>
-<div class="relative h-64 md:h-screen overflow-none" :style="'min-height:' + height" id="nxslider">
+<div class="relative h-64 md:h-screen overflow-none" :style="'min-height:' + height + 'height:' + height" id="nxslider">
     <transition-group name="slide"
       mode="out-in"
       enter-class="slide-in"
       leave-class="slide-out"
       enter-active-class="animated slide-in-active"
       leave-active-class="animated slide-out-active">
-        <div :key="'slide_' + i" v-for="(slide,i) in $attrs.slides" :class="'relative md:h-auto w-full flex items-center bg-center bg-no-repeat bg-cover nuxpresso-slider h-full'" :style="'min-height:' + height + ' ' + bgSlide(slide)" v-if="currentIndex === i">
-            <div :class="'centered w-4/5 md:m-0 md:w-3/4 lg:w-4/5 absolute p-2 md:p-10 ' + boxCss(slide)">
-            <div :class="'w-full flex flex-col-reverse md:flex-row flex-shrink flex-wrap ' + justify(slide)">
-                <div>
-                    <div :class="'text-3xl md:text-5xl ' + classe('text','heading_fg') + ' ' + sliderClass('title')">{{slide.title}}</div>
-                    <div :class="'text-xl md:text-3xl ' + classe('text','heading_fg') + ' ' + sliderClass('subtitle')">{{slide.subtitle}}</div>
-                    <p v-if="slide.description" :class="classe('text','primary_fg') + ' ' + sliderClass('description')">{{slide.description}}</p>
-                    <div class="mt-4" v-if="slide.button">
-                        <nuxt-link
-                            :to="slide.button_link">
-                        <button :class="sliderClass('button')">{{slide.button}}</button>
-                        </nuxt-link>
+        <div :key="'slide_' + i" v-for="(slide,i) in $attrs.slides" :class="'relative w-full flex items-center bg-center bg-no-repeat bg-cover nuxpresso-slider h-full ' + currentBackground" :style="'min-height:' + height + ' ' + bgSlide(slide)" v-if="currentIndex === i">
+            <div :class="'centered w-4/5 md:m-0 md:w-3/4 lg:w-3/5 absolute p-2 md:p-10 ' + boxCss(slide)">
+                <div :class="'w-full flex flex-col-reverse md:flex-row flex-shrink flex-wrap ' + justify(slide)">
+                    <div>
+                        <h2 :class="classeOverlay(slide,'title') + ' ' +  sliderClass('title',i)">{{slide.title}}</h2>
+                        <h3 :class="classeOverlay(slide,'subtitle') + ' ' + sliderClass('subtitle',i)">{{slide.subtitle}}</h3>
+                        <p v-if="slide.description" :class="classeOverlay(slide,'description') + ' ' + sliderClass('description',i)">{{slide.description}}</p>
+                        <div class="mt-4" v-if="slide.button">
+                            <nuxt-link
+                                :to="slide.button_link">
+                            <button :class="sliderClass('button',i)">{{slide.button}}</button>
+                            </nuxt-link>
+                        </div>
                     </div>
+                    
+                    <div v-if="slide.image_for_description" :class="'flex items-center justify-center ' + sliderClass('image-wrapper',i)">
+                        <img :src="slide.image_for_description.url" :class="sliderClass('image',i)"/>
+                    </div>
+                    
                 </div>
-                
-                <div v-if="slide.image_for_description" :class="'flex items-center justify-center ' + sliderClass('image-wrapper')">
-                    <img :src="slide.image_for_description.url" :class="sliderClass('image')"/>
-                </div>
-                
             </div>
-        </div>
 
         </div>
     </transition-group>
     <div style="top:50%;transform:translateY(-50%)" class="p-0 md:p-2 absolute">
-            <i class="material-icons text-5xl text-white cursor-pointer" @click="prev">
+            <i class="material-icons text-3xl md:text-5xl text-white cursor-pointer bg-gray-400 rounded-full hover:bg-black hover:text-white" @click="prev">
                 <span  v-if="$attrs.slider.navigator_icon">{{$attrs.slider.navigator_icon.split(',')[0]}}</span>
                 <span v-else>chevron_left</span>
                 </i>
         </div>
         <div style="top:50%;right:0;transform:translateY(-50%)" class="p-0 md:p-2 absolute">
-            <i class="material-icons text-5xl text-white cursor-pointer" @click="next">
+            <i class="material-icons text-3xl md:text-5xl text-white cursor-pointer bg-gray-400 rounded-full hover:bg-black hover:text-white" @click="next">
                 <span v-if="$attrs.slider.navigator_icon">{{$attrs.slider.navigator_icon.split(',')[1]}}</span>
                 <span v-else>chevron_right</span>
             </i>
@@ -90,7 +90,7 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-    name: "Slider",
+    name: "NuxpSliderPro",
     data:()=>({
         images: [],
         timer: null,
@@ -107,6 +107,8 @@ export default {
         if ( this.$attrs.slider.autoplay )
             this.startSlide()
         this.reSize()
+        let offset = document.querySelector('header').clientHeight
+        this.height = window.innerHeight - parseInt(offset) + 'px;'
         let vm = this
         window.addEventListener('resize', function() {
             vm.reSize()
@@ -117,19 +119,23 @@ export default {
 
     methods: {
         reSize(){
-            this.$attrs.slider.autoplay ? this.startSlide() : null
-            let w = document.getElementById('nxslider')
-            this.height =  w ? ((w.clientWidth)*9/16) + 'px;' : '35rem;'
+            let offset = document.querySelector('header').clientHeight
+            this.height = window.innerHeight - parseInt(offset) + 'px;'
+            //let w = document.getElementById('nxslider')
+            //this.height =  w ? ((w.clientWidth)*9/16) + 'px;' : '35rem;'
         },
         startSlide: function() {
             this.timer = setInterval(this.next, this.$attrs.slider.delay ? parseInt(this.$attrs.slider.delay)*1000 : this.delay);
         },
         bgSlide(slide){
-            console.log ( slide.image )
             return  slide.image ? ' background-image:url(' + slide.image.url + ') ;' : ''
         },
         boxCss(slide){
-            return slide.box_css ? slide.box_css : 'bg-black bg-opacity-75 rounded-lg shadow'
+            let classe = slide.box_background ? this.$colorClass('bg',slide.box_background ,slide.box_background_tone) + ' ' : ''
+            classe += slide.box_opacity ? 'bg-opacity-' + slide.box_opacity + ' ' : ''
+            classe += slide.box_css ? slide.box_css : '' 
+            if ( classe ) return classe
+            return 'bg-black bg-opacity-75 rounded-lg shadow'
         },
         justify(slide){
             return slide.image_for_description ? 'justify-around' : ''
@@ -139,16 +145,21 @@ export default {
             return cl
             
         },
-        sliderClass(what){
-            return 'nuxpresso-slider-pro-' + what + ' nuxpresso-widget-' + this.$slugify(this.$attrs.name) + '-' + what
+        classeOverlay(slide,element){
+            let base = element === 'title' ? 'text-3xl md:text-5xl font-bold ' : element === 'subtitle' ? ' text-xl md:text-3xl ' : ''
+            base += slide.text_color ?
+                this.$colorClass('text',slide.text_color,slide.text_tone) :
+                    classe('text','heading_fg')
+            return base
         },
-        next: function() {
-            this.currentIndex += 1;
-            if ( this.currentIndex < this.$attrs.slides.length )
-                return true
-            this.currentIndex = 0
-            //this.index = Math.abs(this.currentIndex) % this.$attrs.slides.length
-            //this.slide = this.$attrs.slides[this.index]
+        sliderClass(what,index){
+            return 'nuxpresso-slider-pro-' + what + ' nuxpresso-widget-' + this.$slugify(this.$attrs.name) + '-' + what + ' nuxpresso-slider-pro-' + what + '-slide-' + index
+        },
+        next: function() { 
+            this.currentIndex < (this.$attrs.slides.length-1) ?
+                this.currentIndex += 1 :
+                    this.currentIndex = 0
+            
         },
         prev: function() {
             this.currentIndex -= 1;
@@ -174,6 +185,7 @@ export default {
             return  this.slide.image ? 'opacity:0;background-image:url(' + this.slide.image.url + ') ;opacity:1;' : ''
         },
         currentBackground(){
+            if ( this.slide )
             return this.slide.background_color ? this.$colorClass ( 'bg' , this.slide.background_color , this.slide.background_tone ) : 'bg-black'
         },
         

@@ -30,7 +30,7 @@
 import NImage from '@/components/widgets/Image'
 import { mapState } from 'vuex'
 export default {
-    name: 'NuxpressoLoopArticles',
+    name: 'NuxpLoopArticles',
     components: { NImage },
     computed:{
         ...mapState ( ['theme' , 'settings'] ),

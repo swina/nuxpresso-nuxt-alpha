@@ -24,7 +24,7 @@ import Widget from '@/components/widgets/Widget'
 import Content from '@/components/widgets/Content'
 
 export default {
-    name: 'NuxpressoSingleArticle',
+    name: 'NuxpSingleArticle',
     data: ()=>({
         article: null,
         slider: null

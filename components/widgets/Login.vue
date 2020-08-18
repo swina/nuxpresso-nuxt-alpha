@@ -7,14 +7,14 @@
             <label class="text-xs mt-6">User<span>*</span></label>
             <input class="" type="text" v-model="form.identifier">
             <label class="text-xs">Password<span>*</span></label>
-            <input class="" type="passowrd" v-model="form.password">
+            <input class="" type="password" v-model="form.password">
             <div class="mt-4 text-center">
                 
                 <button type="submit" v-if="enabled">Login</button>
             </div>
             <nuxt-link
                 to="/">
-                <i class="material-icons absolute top-0 right-0">highlight_off</i>
+                <i class="material-icons absolute top-0 right-0" @click="$emit('close')">highlight_off</i>
             </nuxt-link>
         </form>
         <div v-else  style="top:50%;left:50%;transform:translate(-50%,-50%)" 
@@ -29,7 +29,7 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-    name: 'NuxpressoLogin',
+    name: 'NuxpLogin',
     data:()=>( {
         form: {
             identifier: '',
@@ -66,9 +66,10 @@ export default {
                     user : response.user,
                     jwt : response.jwt
                 }
-                vm.$store.dispatch ( 'authenticatedUser' , authenticated )
-                window.sessionStorage.setItem ( 'nuxpresso-jwt' , JSON.stringify(response.jwt) )
-                window.sessionStorage.setItem ( 'nuxpresso-user' , JSON.stringify(response.user) )
+                //vm.$store.dispatch ( 'authenticatedUser' , authenticated )
+                //vm.$axios.defaults.headers.common = {'Authorization': 'Bearer ' + response.jwt};
+                window.localStorage.setItem ( 'nuxpresso-jwt' , "Bearer " + response.jwt )
+                window.localStorage.setItem ( 'nuxpresso-user' , JSON.stringify(response.user) )
                 vm.viewForm = false
                 vm.enabled = true
                 vm.responseClass = 'text-green-500'

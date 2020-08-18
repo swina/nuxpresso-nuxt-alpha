@@ -4,7 +4,7 @@
 
 <script>
 export default {
-    name: 'NuxpressoImage',
+    name: 'NuxpImage',
     data:()=>({
         alt: ''
     }),
@@ -14,7 +14,7 @@ export default {
                 return this.$attrs.options.url
             } else {
                 return this.$attrs.article.image ? this.$attrs.article.image.url :
-                this.$attrs.article.random_image ? 
+                this.$attrs.article.random_image && this.$store.state.settings.autoimage ? 
                     'https://source.unsplash.com/random/800x400?'+ this.$attrs.article.title : false
             }
         },

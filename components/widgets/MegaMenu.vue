@@ -21,7 +21,7 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-    name: 'NuxpressoMegamenu',
+    name: 'NuxpMegamenu',
     data:()=>({
         show: true
     }),

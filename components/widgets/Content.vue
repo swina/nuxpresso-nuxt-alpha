@@ -113,7 +113,7 @@ import NuxpressoMenu from '@/components/widgets/MenuResponsive'
 import { mapState } from 'vuex'
 
 export default {
-    name: 'NuxpressoArticleContent',
+    name: 'NuxpArticleContent',
     data:()=>({
         content: null,
         contentWidgets: null,

@@ -9,15 +9,13 @@ import articlesTagQuery from '@/apollo/queries/article/articles-tag'
 import Loop from '@/components/widgets/Loop'
 import { mapState } from 'vuex'
 export default {
-    name: 'NuxpressoArticlesTags',
+    name: 'NuxpArticlesTags',
     components: { Loop },
     computed:{
         ...mapState ( ['settings'] )
     },
     head(){
         if ( this.articles ){
-            console.log ( this.articles.SEO )
-            
             return {
                 title: this.articles.SEO.title || this.article.title,
                 meta: [

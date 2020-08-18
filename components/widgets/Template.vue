@@ -42,7 +42,7 @@ import NImage from '@/components/widgets/Image'
 import Tags from '@/components/widgets/Tags'
 
 export default {
-    name: 'NuxpressoPageTemplate',
+    name: 'NuxpPageTemplate',
     components: {
         Widget , NImage, Tags
     }

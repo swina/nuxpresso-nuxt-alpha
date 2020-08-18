@@ -22,7 +22,8 @@ export const state = () => ({
     theme_preview: null,
     templates: null,
     current_template: null,
-    icons: null
+    icons: null,
+    current_article: null
 })
 
 export const mutations = {
@@ -64,6 +65,9 @@ export const mutations = {
     },
     SET_ICONS ( state , icons ){
         state.icons = icons
+    },
+    SET_ARTICLE ( state , article ){
+        state.current_article = article
     }
 }
 
@@ -79,7 +83,8 @@ export const actions = {
         commit ( 'SET_THEME' , theme.data[0] )
         const w = await this.$axios.get ( 'widgets' )
         commit ( 'SET_WIDGETS' , w.data )
-        
+        const themes = await this.$axios.get ( 'themes' )
+        commit ( 'SET_THEMES' , themes.data )
     },
     async loadLayout ( { commit } ){
         //const response = await this.app.apolloProvider.defaultClient.query( { query : layoutQuery })
@@ -131,12 +136,25 @@ export const actions = {
         const theme = await this.$axios.get ( 'themes?id=' + id )
         commit ( 'SET_THEME' , theme.data[0] )
     },
+    async loadTheme ( { commit } , theme ){
+        commit ( 'SET_THEME' , theme )
+    },
     async layout ( { commit} ){
         const response = await this.$axios.get ( 'layout' )
         commit ( 'SET_LAYOUT' , response.data )
     },
+    
+    async updateSettings ( { commit } , settings ){
+        commit ( 'SET_SETTINGS' , settings )
+    },
+    async updateMenus ( { commit } , menus ){
+        commit ( 'SET_MENUS' , menus )
+    },
     themePreview ( { commit } , theme ){
         commit ( 'SET_THEME_PREVIEW' , theme )
+    },
+    set_current_article ( { commit } , article ){
+        commit ( 'SET_ARTICLE' , article )
     }
 }
 

@@ -11,7 +11,7 @@ import Widget from '@/components/widgets/Widget'
 import SimpleMenu from '@/components/widgets/SimpleMenu'
 
 export default {
-    name: 'NuxpressoShortcode',
+    name: 'NuxpShortcode',
     components: { Widget , SimpleMenu },
     computed:{
         ...mapState ( ['widgets' , 'menus'] ),

@@ -1,101 +1,130 @@
-import Vue from 'vue'
-import moment from 'moment'
-import NuxpressoIcon from '@/components/widgets/Icon'
-import NuxpressoWidget from '@/components/widgets/Widget'
-import NuxpressoLogin from '@/components/widgets/Login'
+    import Vue from 'vue'
+    import moment from 'moment'
+    import NuxpressoIcon from '@/components/widgets/Icon'
+    import NuxpressoWidget from '@/components/widgets/Widget'
+    import NuxpressoLogin from '@/components/widgets/Login'
+    //import NuxpressoDarkmode from '@/components/ui/DarkMode'
 
-Vue.component ( 'NuxpressoIcon' , NuxpressoIcon )
-Vue.component ( 'NuxpressoWidget' , NuxpressoWidget )
-Vue.component ( 'NuxpressoLogin' , NuxpressoLogin )
-const baseURL = 'https://js.api.here.com/v3/3.1/'
-const src = 'mapsjs.bundle.js' //'mapsjs-core.js','mapsjs-service.js','mapsjs-ui.js','mapsjs-mapevents.js']
-const styles = 'mapsjs-ui.css'
-
-
-
-
-const tones = {
-    extralight : 100 ,
-    verylight : 200 ,
-    mediumlight: 300 ,
-    light: 400 ,
-    normal: 500 ,
-    mediumdark: 600 ,
-    dark: 700 ,
-    verydark: 800 ,
-    extradark: 900 
-}
-
-function colorTones( suf = 'fg' , color , tone ){
-    let pref = suf === 'fg' ? 'text' : 'bg'
-    if ( color != 'transparent' && color != 'black' && color != 'white' ) {
-        return pref + '-' + color + '-' + tones[tone]
-    } else {
-        return pref + '-' + color
-    }
-}
-
-Vue.prototype.$moment = function ( d= new Date ) {
-    return moment ( d ).format ( 'MM-DD-YYYY')
-}
-
-Vue.prototype.$slugify = function ( text = '' ){
-    return text.toLowerCase()
-    .replace(/ /g,'-')
-    .replace(/[^\w-]+/g,'') 
-}
+    Vue.component ( 'NuxpressoIcon' , NuxpressoIcon )
+    Vue.component ( 'NuxpressoWidget' , NuxpressoWidget )
+    Vue.component ( 'NuxpressoLogin' , NuxpressoLogin )
+    //Vue.component ( 'NuxpressoDarkmode' , NuxpressoDarkmode )
+    const baseURL = 'https://js.api.here.com/v3/3.1/'
+    const src = 'mapsjs.bundle.js' //'mapsjs-core.js','mapsjs-service.js','mapsjs-ui.js','mapsjs-mapevents.js']
+    const styles = 'mapsjs-ui.css'
+    import icons from './icons'
+    Vue.use(icons)
 
 
-Vue.prototype.$colorClass = function ( pref = 'bg' , color , tone ){
-
-    if ( color != 'transparent' && color != 'black' && color != 'white' ) {
-
-        return pref + '-' + color + '-' + tones[tone]
-    } else {
-        return pref + '-' + color
+    const tones = {
+        extralight : 100 ,
+        verylight : 200 ,
+        mediumlight: 300 ,
+        light: 400 ,
+        normal: 500 ,
+        mediumdark: 600 ,
+        dark: 700 ,
+        verydark: 800 ,
+        extradark: 900 
     }
 
-}
+    function colorTones( suf = 'fg' , color , tone ){
+        let pref = suf === 'fg' ? 'text' : 'bg'
+        if ( color != 'transparent' && color != 'black' && color != 'white' ) {
+            return pref + '-' + color + '-' + tones[tone]
+        } else {
+            return pref + '-' + color
+        }
+    }
 
-Vue.prototype.$colorize = function ( theme , element  ){
-    return theme[element] ? colorTones ( element.split('_')[1] , theme[element].color , theme[element].density ) : ''
-}
+    Vue.prototype.$icons = function(){
+        return icons.split(',')
+    }
 
+    Vue.prototype.$moment = function ( d= new Date ) {
+        return moment ( d ).format ( 'MM-DD-YYYY')
+    }
 
-Vue.prototype.$menuLink = function ( item ){
-    if ( !item ) return null
-    return item.article ?
-        '/articles/' + item.article.slug :
-            item.category ? '/categories/' + item.category.slug :
-                item.link_url ? item.link_url : false
-}
+    Vue.prototype.$slugify = function ( text = '' ){
+        return text.toLowerCase()
+        .replace(/ /g,'-')
+        .replace(/[^\w-]+/g,'') 
+    }
 
-/* used for vue-here-map */
-Vue.prototype.$loadMapScript = function ( ) { // eslint-disable-line no-param-reassign
-    return new Promise(function (resolve, reject) {
-        if (document.querySelector('script[src="' + baseURL + src + '"]')) {
-            resolve();
-            return;
+    Vue.prototype.$twColor = function ( field ){
+        let classe = ''
+        if ( field ){
+            classe += field.color ?
+                field.tw_color : ''
+            classe += field.css ? ' ' + field.css : ''
+        }
+        return classe
+    }
+
+    Vue.prototype.$colorClass = function ( pref = 'bg' , color , tone ){
+
+        if ( color != 'transparent' && color != 'black' && color != 'white' ) {
+
+            return pref + '-' + color + '-' + tones[tone]
+        } else {
+            return pref + '-' + color
         }
 
-        const el = document.createElement('SCRIPT');
+    }
 
-        el.src = baseURL + src;
-        el.defer = true
-        el.async = true;
-        el.type = 'module';
+    Vue.prototype.$colorize = function ( theme , element  ){
+        return theme[element] ? colorTones ( element.split('_')[1] , theme[element].color , theme[element].density ) : ''
+    }
 
-        el.addEventListener('load', resolve);
-        el.addEventListener('error', reject);
-        el.addEventListener('abort', reject);
 
-        document.head.appendChild(el);
-        let hereMapStyle = document.createElement('LINK')
-        let url = baseURL + styles
-        hereMapStyle.setAttribute('href' , url )
-        hereMapStyle.setAttribute( 'rel' , 'stylesheet' )
-        hereMapStyle.setAttribute( 'type' , 'text/css' )
-        document.head.appendChild(hereMapStyle)
-    });
-  };
+    Vue.prototype.$menuLink = function ( item ){
+        if ( !item ) return null
+        return item.article ?
+            '/articles/' + item.article.slug :
+                item.category ? '/categories/' + item.category.slug :
+                    item.link_url ? item.link_url : false
+    }
+
+    /* used for vue-here-map */
+    Vue.prototype.$loadMapScript = function ( ) { // eslint-disable-line no-param-reassign
+        return new Promise(function (resolve, reject) {
+            if (document.querySelector('script[src="' + baseURL + src + '"]')) {
+                resolve();
+                return;
+            }
+
+            const el = document.createElement('SCRIPT');
+
+            el.src = baseURL + src;
+            el.defer = true
+            el.async = true;
+            el.type = 'module';
+
+            el.addEventListener('load', resolve);
+            el.addEventListener('error', reject);
+            el.addEventListener('abort', reject);
+
+            document.head.appendChild(el);
+            let hereMapStyle = document.createElement('LINK')
+            let url = baseURL + styles
+            hereMapStyle.setAttribute('href' , url )
+            hereMapStyle.setAttribute( 'rel' , 'stylesheet' )
+            hereMapStyle.setAttribute( 'type' , 'text/css' )
+            document.head.appendChild(hereMapStyle)
+        });
+    };
+
+    Vue.prototype.$randomID = () => {
+        return 'nuxpresso-id-' + Math.random().toString(36).substr(2, 5)
+    }
+
+    Vue.prototype.$debounce = (callback, duration) => {
+        var timer;
+        return function(event) {
+        clearTimeout(timer);
+        timer = setTimeout(function(){
+            callback(event);
+        }, duration);
+        };
+    }
 

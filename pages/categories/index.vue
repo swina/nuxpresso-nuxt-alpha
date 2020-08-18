@@ -15,7 +15,7 @@ import categoryQuery from '@/apollo/queries/category/categories'
 import Loop from '@/components/widgets/Loop'
 
 export default {
-    name: 'NuxpressoCategories',
+    name: 'NuxpCategories',
     data:()=>({
         articles: []
     }),

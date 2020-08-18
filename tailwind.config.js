@@ -12,8 +12,8 @@ module.exports = {
     },
     maxWidth: {
           '1/4': '25%',
-           '1/2': '50%',
-           '3/4': '75%',
+          '1/2': '50%',
+          '3/4': '75%',
     },
     gridTemplateColumns: {
       'header-classic' : '30% auto',
@@ -41,7 +41,10 @@ module.exports = {
       'xl': '4rem',
     }
   },
-  variants: {},
+  variants: {
+    borderColor : [ 'responsive' , 'hover' , 'focus' ],
+    backgroundColor: [ 'responsive' ]
+  },
   plugins: [],
   purge: {
     // Learn more on https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css
@@ -54,10 +57,7 @@ module.exports = {
       'nuxt.config.js'
     ],
     options: {
-      whitelistPatterns: [/^bg/,/^text/,/^border/,/^hover/,/^m/,/^p/,/^flex/,/^order/]
-    },
-    variants: {
-      borderColor : [ 'responsive' , 'hover' , 'focus' ]
+      whitelistPatterns: [/^bg/,/^text/,/^border/,/^hover/,/^m/,/^p/,/^flex/,/^order/,/^md:/,/^lg:/]
     }
   }
 }

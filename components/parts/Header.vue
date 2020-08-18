@@ -1,5 +1,5 @@
 <template>
-    <header :class="classe + ' nuxpresso-header '">
+    <header :class="classe + ' nuxpresso-header bg-center bg-cover bg-no-repeat'" :style="background + ';background-position:center center;background-size:cover;background-repeat:no-repeat'">
         
         <div :class="'flex flex-col items-center justify-around w-full ' + flexMe + ' ' + row.css" v-for="(row,r) in theme.header" :key="'header_row_' + r">
  
@@ -30,6 +30,7 @@
                         :id="col.widget.id"/>
                     
                     <NuxpressoMenu 
+                        :class="'nupresso-menu-' + $slugify(col.menu.name)"
                         :orientation="orientation"
                         v-if="col.menu"
                         :id="col.menu.id"/>    
@@ -65,14 +66,18 @@ import NuxpressoMenu from '@/components/widgets/MenuResponsive'
 import { mapState } from 'vuex'
 
 export default {
-    name: 'NuxpressoHeader',
+    name: 'NuxpHeader',
     components: {
         NuxpressoComponent , NuxpressoMenu , Widget
     },
     computed: {
         ...mapState ( [ 'theme' , 'layout' , 'menus' ] ),
         classe(){
-            return this.$colorClass( 'bg' , this.theme.header_bg.color , this.theme.header_bg.density ) + ' ' + this.theme.header_bg.css
+            return this.$twColor ( this.theme.header_bg )
+        },
+        background(){
+            if ( ! this.theme.header_bg.image ) return ''
+            return 'background-image:url(' + this.theme.header_bg.image.url + ')'
         },
         flexMe(){
             return this.$attrs.flex ? 'lg:' + this.$attrs.flex : 'lg:flex-row'

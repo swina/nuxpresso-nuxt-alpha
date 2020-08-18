@@ -104,6 +104,10 @@
                     <NuxpressoSocial :social="comp.social_share" :orientation="comp.vertical" :titles="comp.display_name"/>
                 </div>
                 
+                <!-- video -->
+                <div v-if="comp['__component']==='widgets.video'">
+                    <nuxpresso-video :video="comp.video_url" :size="comp.video_size" :classe="comp.css"/>
+                </div>
             </div>
         </div>
     </div>
@@ -120,11 +124,12 @@ import NuxpressoSliderPro from '@/components/widgets/SliderPro'
 import NuxpressoLogo from '@/components/widgets/Logo'
 import NuxpressoSocial from '@/components/widgets/SocialShare'
 import NuxpressoMultiBox from '@/components/widgets/MultiBox'
+import NuxpressoVideo from '@/components/widgets/Video'
 
 import { mapState } from 'vuex'
 
 export default {
-    name: 'NuxpressoWidget',
+    name: 'NuxpWidget',
     data:()=>({
         wrapper: '' ,
         articles: null
@@ -142,7 +147,19 @@ export default {
         }
 
     },
-    components: { Slider , NuxpressoForm , Loop , Box , NImage , NuxpressoMap , NuxpressoSliderPro , NuxpressoLogo , NuxpressoSocial , NuxpressoMultiBox },    
+    components: { 
+        Slider , 
+        NuxpressoForm , 
+        Loop , 
+        Box , 
+        NImage , 
+        NuxpressoMap , 
+        NuxpressoSliderPro , 
+        NuxpressoLogo , 
+        NuxpressoSocial , 
+        NuxpressoMultiBox,
+        NuxpressoVideo
+    },    
     methods:{
         calcFull(id){
             if ( this.widget.fullwidth ){

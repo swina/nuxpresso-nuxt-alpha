@@ -10,7 +10,7 @@ import Single from '@/components/widgets/Single'
 import NuxpressoTemplate from '@/components/parts/Template'
 import { mapState }  from 'vuex'
 export default {
-    name: 'NuxpressoArticleSlug',
+    name: 'NuxpArticleSlug',
     components: {
         Single,NuxpressoTemplate
     },
@@ -18,11 +18,7 @@ export default {
         ...mapState ( ['settings'] )
     },
     head(){
-        console.log ( this.articles )
-        
         if ( this.articles ){
-            console.log ( this.articles.SEO )
-            
             return {
                 title: this.articles.SEO.title ? this.articles.SEO.title : this.articles.title,
                 meta: [

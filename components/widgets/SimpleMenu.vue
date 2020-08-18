@@ -16,7 +16,7 @@
 import { mapState } from 'vuex'
 
 export default {
-    name: 'NuxpressoSimpleMenu',
+    name: 'NuxpSimpleMenu',
     computed:{
         ...mapState ( ['menus','theme'] ),
         menu(){

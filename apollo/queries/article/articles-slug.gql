@@ -1,5 +1,6 @@
 query Articles ( $slug : String){
   articles( where : { slug :$slug } ) {
+    id
     title
     excerpt
     content
@@ -47,7 +48,14 @@ query Articles ( $slug : String){
         menu {
           id
         }
+        image {
+          url
+          caption
+          alternativeText
+        }
+        random_image
       }
+      col_1_class
       fields_col_2 {
         name
         class
@@ -59,7 +67,14 @@ query Articles ( $slug : String){
         menu {
           id
         }
+        image {
+          url
+          caption
+          alternativeText
+        }
+        random_image
       }
+      col_2_class
       fields_col_3 {
         name
         class
@@ -71,7 +86,14 @@ query Articles ( $slug : String){
         menu {
           id
         }
+        image {
+          url
+          caption
+          alternativeText
+        }
+        random_image
       }
+      col_3_class
     }
   } 
 }

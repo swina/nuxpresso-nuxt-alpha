@@ -7,6 +7,7 @@ query Settings {
     darkmode
     autoimage
     authentication
+    scrolltop
     articles_limit
     articles_loop_mode
     read_more
@@ -31,16 +32,19 @@ query Settings {
           color
           density
           css
+          tw_color
         }
         main_bg {
           color
           density
           css
+          tw_color
         }
         header_fg {
           color
           density
           css
+          tw_color
         }
         header_bg {
           color
@@ -49,11 +53,13 @@ query Settings {
             url
           }
           css
+          tw_color
         }
         footer_fg {
           color
           density 
           css
+          tw_color
         }
         footer_bg {
           color
@@ -62,16 +68,19 @@ query Settings {
             url
           }
           css
+          tw_color
         }
         link_fg {
           color
           density 
           css
+          tw_color
         }
         menu_fg {
           color
           density 
           css
+          tw_color
         }
       }
     }

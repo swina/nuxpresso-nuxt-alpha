@@ -14,7 +14,7 @@
 import { mapState } from 'vuex'
 
 export default {
-    name: 'NuxpressoBreadcrumb',
+    name: 'NuxpBreadcrumb',
     computed:{
         ...mapState ( ['theme','layout'] ),
         classe(){

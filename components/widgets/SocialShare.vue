@@ -9,7 +9,7 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-    name: 'NuxpressoSocial',
+    name: 'NuxpSocial',
     computed: {
         ...mapState ( ['theme'] ),
         classe(){

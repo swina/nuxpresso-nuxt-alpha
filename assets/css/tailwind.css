@@ -2,34 +2,36 @@
 @tailwind components;
 
 
+body {
+    font-family: 'Barlow Condensed', sans-serif;
+    @apply leading-6 overflow-x-hidden;
+}
 
 h1 {
-    @apply text-5xl my-4 leading-none;
+    @apply text-5xl my-6 leading-10;
 }
 
 h2 {
-    @apply text-4xl my-4 leading-none;
+    @apply text-4xl my-6 leading-10;
 }
 
 h3 {
-    @apply text-3xl mt-8 mb-4;
+    @apply text-3xl my-2 mb-4 leading-8;
 }
 
 h4 {
-    @apply text-2xl my-4;
+    @apply text-2xl my-2 leading-8;
 }
 
 h5 {
-    @apply text-2xl my-4;
+    @apply text-2xl my-2 leading-8;
 }
 
-.nuxpresso-article-content > div > div > h3 {
-    @apply mt-4;
+a { 
+    @apply text-blue-500;
 }
 
-.nuxpresso-article-content > div > p > a {
-    @apply underline;
-}
+
 
 blockquote {
     @apply bg-gray-200 p-4 border-l-4 border-orange-500;
@@ -43,7 +45,8 @@ ul > li {
 }
 
 p {
-    @apply leading-8;
+    font-weight:400;
+    @apply leading-5;
 }
 
 button {
@@ -52,6 +55,10 @@ button {
 
 button:hover {
     @apply bg-white text-black border-gray-300;
+}
+
+button.xs {
+    @apply px-2 py-1 text-xs;
 }
 
 form {
@@ -73,9 +80,29 @@ input[type="range"]:focus {
     @apply shadow-none;
 }
 
+input.xs {
+    @apply text-xs p-1 text-gray-700;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.5);
+    margin: .3rem;
+}
 
 pre {
     @apply w-full overflow-auto bg-gray-200 text-xs p-2 my-2 border border-gray-400;
+}
+
+.nuxpresso-article-content > div > div > h3 {
+    @apply mt-4;
+}
+
+.nuxpresso-article-content > div > p > a {
+    @apply underline;
+}
+
+.nuxpresso-video {
+    margin:auto;
 }
 
 .nuxpresso-flex-row {
@@ -468,5 +495,25 @@ a.nav-primary-item:hover {
    margin-right: 0;
 }
 
+.slidedown-enter-active , .slidedown-leave-active {
+    transition: transform .5s ease-in-out;
+    transform: translateY(0%);
+    opacity:1;
+}
+
+.slidedown-enter , .slidedown-leave-to {
+    transform: translateY(-100%);
+    opacity:1;
+}
+
+.slidedown-enter , .slidedown-leave-to {
+    transform: translateY(-100%);
+    opacity:1;
+}
+
+/* custom class to remove */
+.nuxpresso-slider-pro-title-slide-0 {
+    @apply border-t border-b border-dashed border-black py-6;
+}
 
 @tailwind utilities;

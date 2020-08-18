@@ -1,20 +1,36 @@
-query Articles {
-  articles ( where :{ homepage: true }) {
+query Articles ( $template : Int){
+  articles( where : { template :{ id:$template } } ) {
     title
-    content
+    slug
     excerpt
+    content
     homepage
-    image {
-      url
+    random_image
+    tags
+    user {
+      username
+    }
+    image { 
+        name 
+        url
+    }
+    gallery {
+        name
+        url
     }
     image_title
-    parent {
-      title
-      slug
-    }
+    updated_at
     SEO {
+        description
+        title
+    }
+    categories {
+        name
+        slug
+    }
+    parent {
+      slug
       title
-      description
     }
     template {
       id
@@ -31,11 +47,6 @@ query Articles {
         menu {
           id
         }
-        image {
-          url
-          caption
-          alternativeText
-        }
       }
       col_1_class
       fields_col_2 {
@@ -48,11 +59,6 @@ query Articles {
         }
         menu {
           id
-        }
-        image {
-          url
-          caption
-          alternativeText
         }
       }
       col_2_class
@@ -67,13 +73,8 @@ query Articles {
         menu {
           id
         }
-        image {
-          url
-          caption
-          alternativeText
-        }
       }
       col_3_class
     }
-  }
+  } 
 }

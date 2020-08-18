@@ -15,7 +15,7 @@ import articlesPaginationQueries from '@/apollo/queries/article/articles-paginat
 import NuxpressoLoop from '@/components/widgets/Loop'
 import { mapState } from 'vuex'
 export default {
-    name: 'NuxpressoArticles',
+    name: 'NuxpArticles',
     components: { NuxpressoLoop },
     data:()=>({
         start: 0
@@ -29,8 +29,8 @@ export default {
             query: articlesPaginationQueries,
             variables(){
                 return {
-                    limit: this.settings.articles_limit,
-                    start: this.start
+                    limit: parseInt(this.settings.articles_limit),
+                    start: parseInt(this.start)
                 }
             },
             update: data => data.articles 

@@ -18,7 +18,7 @@ import NuxpressoTemplate from '@/components/parts/Template'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'NuxpressoMain',
+  name: 'NuxpMain',
   components: {
     NuxpressoTemplate
   },

@@ -6,7 +6,7 @@
                 <div :class="'flex flex-col w-full h-full nuxpresso-multi-box-content ' + $attrs.component.class">
                     <img v-if="feature.image" :src="feature.image.url" class="nuxpresso-box-image"/>
                     <i slot="line_1" v-if="feature.material_icon" style="font-size:3rem;" class="nuxpresso-box-icon material-icons">{{feature.material_icon}}</i>
-                    <h3 class="nuxpresso-box-title m-0" slot="line_2">{{feature.title}}</h3>
+                    <h3 class="nuxpresso-box-title" slot="line_2">{{feature.title}}</h3>
 
                     <h3 class="nuxpresso-box-price" slot="line_3" v-if="feature.price">
                         <span v-if="feature.sale" class="line-through text-xs">{{feature.price}}</span>
@@ -35,8 +35,8 @@
                     <img v-if="feature.image" :src="feature.image.url" class="nuxpresso-box-image"/>
                     <i slot="line_1" v-if="feature.material_icon" style="font-size:3rem;" class="nuxpresso-box-icon material-icons">{{feature.material_icon}}</i>
                 </div>
-                <div class="w-auto p-2 nuxpresso-multi-box-text">
-                    <h3 class="nuxpresso-box-title m-0" slot="line_2">{{feature.title}}</h3>
+                <div class="w-auto p-2 nuxpresso-multi-box-text relative">
+                    <h3 class="nuxpresso-box-title" slot="line_2">{{feature.title}}</h3>
 
                     <h3 class="nuxpresso-box-price" slot="line_3" v-if="feature.price">
                         <span v-if="feature.sale" class="line-through text-xs">{{feature.price}}</span>
@@ -46,9 +46,9 @@
                     
                     <p class="nuxpresso-box-subtitle" slot="line_3">{{feature.subtitle}}</p>
                     
-                    <p :key="'line_' + l" class="nuxpresso-box-multiline" slot="line_4" v-for="(line,l) in multiline(feature.description)">{{line}}</p>
+                    <p :key="'line_' + l" class="mb-2 nuxpresso-box-multiline" slot="line_4" v-for="(line,l) in multiline(feature.description)">{{line}}</p>
 
-                    <div v-if="feature.button"  class="nuxpresso-box-button" slot="line_5">
+                    <div v-if="feature.button"  class="nuxpresso-box-button " slot="line_5">
                         <nuxt-link 
                             :to="feature.link">
                             <button>{{ feature.button }}</button>
@@ -64,7 +64,7 @@
 import Box from '@/components/ui/InfoBox'
 import { mapState } from 'vuex'
 export default {
-    name: 'NuxpressoMultiBoxWidget',
+    name: 'NuxpMultiBoxWidget',
     components: { Box },
     computed:{
         ...mapState ( ['theme'] ),

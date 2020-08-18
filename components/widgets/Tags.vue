@@ -13,10 +13,9 @@
 
 <script>
 export default {
-    name: 'NuxpressoTags',
+    name: 'NuxpTags',
     methods:{
         taxonomy(item){
-            console.log ( this.$attrs.taxonomy ? item : item )
             return this.$attrs.taxonomy ? item[this.$attrs.taxonomy] : item 
         },
         display(item){

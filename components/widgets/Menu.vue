@@ -53,7 +53,7 @@ import MegaMenu from '@/components/widgets/MegaMenu'
 import { mapState } from 'vuex'
 
 export default {
-    name: 'NuxpressoLink',
+    name: 'NuxpLink',
     data:()=>({
         desktop: true,
         menu: null,

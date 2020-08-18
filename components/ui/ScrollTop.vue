@@ -1,10 +1,10 @@
 <template>
-    <i class="material-icons cursor-pointer bg-white shadow rounded-full fixed bottom-0 right-0 m-2" style="font-size:3rem;" @click="scrollTop" v-if="visible">keyboard_arrow_up</i>
+    <i class="material-icons cursor-pointer text-black bg-white shadow rounded-full fixed bottom-0 right-0 m-2" style="font-size:3rem;" @click="scrollTop" v-if="visible">keyboard_arrow_up</i>
 </template>
 
 <script>
 export default {
-    name: 'NuxpressoScrollTop',
+    name: 'NuxpScrollTop',
     data:()=>({
         visible: false,
         visibleoffset: 120,

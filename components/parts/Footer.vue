@@ -1,5 +1,5 @@
 <template>
-    <footer :class="classe + ' nuxpresso-footer'">
+    <footer :class="classe + ' nuxpresso-footer'" :style="background">
 
         <div v-if="theme.footer" :class="'flex flex-col md:flex-row justify-around ' + row.css" v-for="(row,r) in theme.footer" :key="'footer_row_' + r">
             
@@ -38,9 +38,9 @@
             
             </template>
         </div>
-
+        <i data-feather="github"></i>
         <div class="nuxpresso-credits flex flex-col justify-center text-xs items-center w-full text-center mt-4">
-            <div>{{year}} {{settings.footer}} - Version {{version}}</div>
+            <div>{{year}} <span v-if="settings.show_title">{{ settings.site_name}} {{ settings.site_title }}</span> {{settings.footer}} - Version {{version}}</div>
             <nuxpresso-dark-mode v-if="settings.darkmode"/>
         </div>
 
@@ -55,16 +55,28 @@ import NuxpressoDarkMode from '@/components/ui/DarkMode'
 import { mapState } from 'vuex'
 
 export default {
-    name: 'NuxpressoFooter',
+    name: 'NuxpFooter',
     components: {
         Widget , NuxpressoComponent, NuxpressoMenu ,NuxpressoDarkMode
     },
     computed: {
         ...mapState ( [ 'theme' , 'settings', 'menus'] ),
         classe(){
-            let classe = this.theme.footer_bg ? this.$colorClass( 'bg' , this.theme.footer_bg.color , this.theme.footer_bg.density ) + ' ' + this.theme.footer_bg.css + ' ' : ' '
-            classe += ' ' + this.theme.footer_fg ? this.$colorClass ( 'text' , this.theme.footer_fg.color , this.theme.footer_fg.density ) : ' '
-            return classe
+            return this.$twColor ( this.theme.footer_bg ) + ' ' + this.$twColor ( this.theme.footer_fg ) 
+            /*
+            let classe = this.theme.footer_bg ?
+                this.theme.footer_bg.tw_color : ''
+            classe += ' ' + this.theme.footer_fg ? ' ' + this.theme.footer_fg.tw_color : ''
+            classe += this.theme.footer_bg.css ? ' ' + this.theme.footer_bg.css : ''
+            classe += this.theme.footer_fg.css ? ' ' + this.theme.footer_fg.css : ''
+            */
+            //let classe = this.theme.footer_bg ? this.$colorClass( 'bg' , this.theme.footer_bg.color , this.theme.footer_bg.density ) + ' ' + this.theme.footer_bg.css + ' ' : ' '
+            //classe += ' ' + this.theme.footer_fg ? this.$colorClass ( 'text' , this.theme.footer_fg.color , this.theme.footer_fg.density ) : ' '
+            //return classe
+        },
+        background(){
+            if ( ! this.theme.footer_bg.image ) return ''
+            return 'background-image:url(' + this.theme.footer_bg.image.url + ');background-position:center center;background-size:cover;background-repeat:no-repeat'
         },
         year(){
             return new Date().getFullYear()
