@@ -2,9 +2,6 @@ query Categories {
   categories {
     name
     slug
-    SEO {
-      title
-      description
-    }
+    id
   }
 }

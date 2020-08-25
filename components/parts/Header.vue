@@ -1,5 +1,5 @@
 <template>
-    <header :class="classe + ' nuxpresso-header bg-center bg-cover bg-no-repeat'" :style="background + ';background-position:center center;background-size:cover;background-repeat:no-repeat'">
+    <header :class="classe + ' nuxpresso-header  bg-center bg-cover bg-no-repeat'" :style="background + ';background-position:center center;background-size:cover;background-repeat:no-repeat;'">
         
         <div :class="'flex flex-col items-center justify-around w-full ' + flexMe + ' ' + row.css" v-for="(row,r) in theme.header" :key="'header_row_' + r">
  
@@ -11,6 +11,7 @@
                         :alt="col.image.alternativeText" 
                         class="w-full"/>
                     <nuxt-link :to="row.column[i].link_url" 
+                        :class="col.class"
                         v-if="row.column[i].link_url && col.image && row.column[i].link_url.indexOf('http') < 0">
                         <img v-if="col.image"  
                             :src="col.image.url" 
@@ -18,13 +19,6 @@
                             :alt="col.image.alternativeText" 
                             class="w-full"/>
                     </nuxt-link>
-
-                    <!--<img v-if="col.image"  
-                        :src="col.image.url" 
-                        :title="col.image.caption" 
-                        :alt="col.image.alternativeText" 
-                        class="w-full"/>
-                    -->
                     <Widget 
                         v-if="col.widget" 
                         :id="col.widget.id"/>
@@ -36,18 +30,20 @@
                         :id="col.menu.id"/>    
 
                     <nuxt-link 
-                        :class="col.css"
+                        :class="col.class"
                         v-if="col.link_url && col.link_url.indexOf('http') < 0"
                         :to="col.link_url">
                         {{ col.content }}
                     </nuxt-link>
-                    <a :class="col.css" v-if="col.link_url && col.link_url.indexOf('http') > -1" :href="col.link_url" target="_blank">{{col.content}}</a>
+
+                    <a :class="col.class" v-if="col.link_url && col.link_url.indexOf('http') > -1" :href="col.link_url" target="_blank">
+                        <span :class="col.class">{{col.content}}</span>
+                    </a>
                     <!--
                     -->
                     <div v-if="col.content && !col.link_url">
                         {{col.content}}
                     </div>
-                    
                     <div v-if="col.paragraph" v-html="col.paragraph.split('\n').join('<br/>')"></div>
                     
                 </div>

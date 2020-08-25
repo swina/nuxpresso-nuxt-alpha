@@ -1,6 +1,5 @@
 <template>
     <section :class="classe + ' nuxpresso-section'">
-        <Breadcrumb class="text-xs p-2" v-if="$store.state.settings.breadcrumb"/>
         <nuxt/>
     </section>
 </template>
@@ -12,13 +11,14 @@ import { mapState } from 'vuex'
 export default {
     name: 'NuxpSection',
     data:()=>({
-        //theme: null,
+        offset: '',
         //sidebar: false
     }),
     components: { Breadcrumb },
     computed: {
-        ...mapState ( ['theme','settings'] ),
+        ...mapState ( ['theme','settings','current_article'] ),
         classe(){
+            
             return this.$twColor ( this.theme.main_bg ) + ' ' + this.$twColor ( this.theme.primary_fg )
             /*
             let classe = this.theme.main_bg ? this.$colorClass( 'bg' , this.theme.main_bg.color , this.theme.main_bg.density ) + ' ' + this.theme.main_bg.css : ''

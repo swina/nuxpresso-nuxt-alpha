@@ -1,5 +1,5 @@
 <template>
-    <div v-if="$route.path!='/'">
+    <div v-if="$route.path!='/'" :style="offset">
         <nuxt-link 
             v-for="(item,i) in breadcrumb"
             :to="item.link"
@@ -35,7 +35,16 @@ export default {
                     { link : '/' , name : name }
             })
             return arr 
-        }
+        },
+        offset(){
+            if ( process.client ){
+                if ( this.$route.path != '/' ){
+                    return this.$store.state.header_offset
+                }
+                return ''
+            }
+            return ''
+        },
     }
 }
 </script>

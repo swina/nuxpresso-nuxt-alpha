@@ -4,15 +4,16 @@
 
 body {
     font-family: 'Barlow Condensed', sans-serif;
+    font-size:1.2rem;
     @apply leading-6 overflow-x-hidden;
 }
 
 h1 {
-    @apply text-5xl my-6 leading-10;
+    @apply text-5xl my-6 leading-15;
 }
 
 h2 {
-    @apply text-4xl my-6 leading-10;
+    @apply text-4xl my-6 leading-15;
 }
 
 h3 {
@@ -46,7 +47,11 @@ ul > li {
 
 p {
     font-weight:400;
-    @apply leading-5;
+    @apply leading-6 my-8;
+}
+
+p.nuxpresso-box-multiline {
+    @apply my-1;
 }
 
 button {
@@ -60,6 +65,11 @@ button:hover {
 button.xs {
     @apply px-2 py-1 text-xs;
 }
+
+button.sm {
+    @apply px-2 py-1 text-sm;
+}
+
 
 form {
     @apply p-2 border rounded;
@@ -89,8 +99,60 @@ input[type="checkbox"] {
     margin: .3rem;
 }
 
+input.customize {
+    @apply text-xs p-0 text-gray-700;
+}
+
 pre {
     @apply w-full overflow-auto bg-gray-200 text-xs p-2 my-2 border border-gray-400;
+}
+
+/* responsive containers extrawide (16:9) wide (4:3) square (4/4) */
+.nuxpresso-16-9 {
+    position:relative;
+    width:100%;
+    padding-top:56.25%
+}
+
+.nuxpresso-4-3 {
+    position:relative;
+    width:100%;
+    padding-top:75%
+}
+
+.nuxpresso-4-4 {
+    position: relative;
+    width:100%;
+    padding-top:100%;
+}
+
+.nuxpresso-responsive-child {
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+}
+
+
+.nuxpresso-16-9 > iframe , .nuxpresso-4-3 > iframe {
+    width:100%;
+    height:100%;
+    position:  absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.nuxpresso-modal {
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    position:fixed;
+    @apply bg-white shadow-lg w-auto;
 }
 
 .nuxpresso-article-content > div > div > h3 {
@@ -511,9 +573,10 @@ a.nav-primary-item:hover {
     opacity:1;
 }
 
-/* custom class to remove */
+/* custom class to remove 
 .nuxpresso-slider-pro-title-slide-0 {
     @apply border-t border-b border-dashed border-black py-6;
 }
+*/
 
 @tailwind utilities;

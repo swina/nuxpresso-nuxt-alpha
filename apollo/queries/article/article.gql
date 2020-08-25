@@ -7,6 +7,13 @@ query Articles($id: ID!) {
     slug
     image {
       url
+      caption
+      alternativeText
+    }
+    gallery {
+      url
+      caption
+      alternativeText
     }
     image_title
     updated_at

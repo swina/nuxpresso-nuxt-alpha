@@ -4,17 +4,17 @@
         <div v-for="(field,f) in Object.keys(fields)" class="flex flex-row mb-2 w-full text-left" :key="'field_' + f">
             <div class="w-full" v-if="fields[field].type==='checkbox'">
                 <input class="xs" v-if="fieldType(fields[field].type)" :type="fieldType(fields[field].type)" v-model="settings[field]">
-                <label v-if="fields[field].type!='submit'" class="text-xs">{{ fields[field].label }} <span v-if="fields[field].required">*</span></label>
+                <label v-if="fields[field].type!='submit'" class="text-sm">{{ fields[field].label }} <span v-if="fields[field].required">*</span></label>
             </div>
             <div class="w-1/3" v-if="fields[field].type!='checkbox'">
-                <label v-if="fields[field].type!='submit'" class="text-xs">{{ fields[field].label }} <span v-if="fields[field].required">*</span></label>
+                <label v-if="fields[field].type!='submit'" class="text-sm">{{ fields[field].label }} <span v-if="fields[field].required">*</span></label>
             </div>
             <div class="w-2/3" v-if="fields[field].type!='checkbox'">
                 <input class="xs" v-if="fieldType(fields[field].type)" :type="fieldType(fields[field].type)" v-model="settings[field]">
-                <textarea class="text-xs" v-if="fields[field].type === 'textarea'" v-model="settings[field]"></textarea>
+                <textarea class="text-sm" v-if="fields[field].type === 'textarea'" v-model="settings[field]"></textarea>
             </div>
             <div  v-if="fields[field].type==='submit'">
-                <button class="xs" type="submit">{{ fields[field].label }}</button>
+                <button class="sm" type="submit">{{ fields[field].label }}</button>
             </div>
         </div>
 

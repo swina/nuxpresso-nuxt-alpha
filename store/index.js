@@ -23,7 +23,9 @@ export const state = () => ({
     templates: null,
     current_template: null,
     icons: null,
-    current_article: null
+    current_article: null,
+    header_offset: 0,
+    components: null
 })
 
 export const mutations = {
@@ -68,6 +70,12 @@ export const mutations = {
     },
     SET_ARTICLE ( state , article ){
         state.current_article = article
+    },
+    SET_HEADER_OFFSET ( state , offset ){
+        state.header_offset = offset
+    },
+    SET_COMPONENTS ( state , components ){
+        state.components = components
     }
 }
 
@@ -77,6 +85,10 @@ export const actions = {
         commit ( 'SET_CATEGORIES' , response.data.categories )
     },
     async loadSettings ( { commit } ){
+
+        
+        
+        
         const response = await this.app.apolloProvider.defaultClient.query( { query : settingsQuery })
         commit ( 'SET_SETTINGS' , response.data.setting )
         const theme = await this.$axios.get ( 'themes?id=' + response.data.setting.current_theme.theme.id )
@@ -85,6 +97,10 @@ export const actions = {
         commit ( 'SET_WIDGETS' , w.data )
         const themes = await this.$axios.get ( 'themes' )
         commit ( 'SET_THEMES' , themes.data )
+        
+        //const components = await this.$axios.get ( 'content-type-builder/components')
+        //commit ( 'SET_COMPONENTS' , components.data )
+        
     },
     async loadLayout ( { commit } ){
         //const response = await this.app.apolloProvider.defaultClient.query( { query : layoutQuery })
@@ -150,12 +166,20 @@ export const actions = {
     async updateMenus ( { commit } , menus ){
         commit ( 'SET_MENUS' , menus )
     },
+
+    async loadComponents ( { commit } ){
+        const components = await this.$axios.get ( 'content-type-builder/components')
+        commit ( 'SET_COMPONENTS' , components.data.data )
+    },
     themePreview ( { commit } , theme ){
         commit ( 'SET_THEME_PREVIEW' , theme )
     },
     set_current_article ( { commit } , article ){
         commit ( 'SET_ARTICLE' , article )
-    }
+    },
+    header_offset ( { commit } , offset ){
+        commit ( 'SET_HEADER_OFFSET' , offset )
+    } 
 }
 
 export const getters = {

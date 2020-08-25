@@ -25,7 +25,7 @@
                     v-if="comp['__component'] === 'widgets.cta'">
                     <h5>{{comp.title}}</h5>
                     {{ comp.subtitle }}
-                     <a v-if="comp.link_url && comp.button" :href="comp.link_url"><button>{{comp.button_text}}</button></a>
+                     <a v-if="comp.link_url && comp.button" :href="comp.link_url"><button :class="btn_class">{{comp.button_text}}</button></a>
                 </div>
 
                 <!-- advanced-features -->
@@ -52,7 +52,7 @@
                                     <nuxt-link 
                                         :to="feature.link"
                                         :key="'button_' + $slugify(feature.name)">
-                                        <button>{{ feature.button }}</button>
+                                        <button :class="btn_class">{{ feature.button }}</button>
                                     </nuxt-link>
                                 </div>
                             </box>
@@ -76,7 +76,7 @@
 
                 <!-- button -->
                 <a v-if="comp['__component']==='widgets.button'" :href="comp.link_url">
-                    <button :class="'nuxpresso-widget nuxpress-button-' + $slugify(widget.name)">{{comp.text}}</button>
+                    <button :class="'nuxpresso-widget nuxpress-button-' + $slugify(widget.name) + btn_class">{{comp.text}}</button>
                 </a>
                 <!-- slider -->
                 <Slider v-if="comp['__component']==='widgets.slider'" :slider="comp" :options="comp.image"/>
@@ -106,8 +106,16 @@
                 
                 <!-- video -->
                 <div v-if="comp['__component']==='widgets.video'">
-                    <nuxpresso-video :video="comp.video_url" :size="comp.video_size" :classe="comp.css"/>
+                    <nuxpresso-video :video="comp.video_url" :size="comp.video_size" :id="'nuxpresso-video-' + widget.id" :classe="comp.css"/>
                 </div>
+
+                <!-- portfolio -->
+                <div v-if="comp['__component']==='widgets.portfolio-container'">
+                    <nuxpresso-portfolio :portfolio="comp"/>
+                </div>
+
+                <!-- timeline -->
+                <nuxpresso-timeline v-if="comp['__component']==='widgets.timeline'" :timeline="comp"/>
             </div>
         </div>
     </div>
@@ -125,6 +133,8 @@ import NuxpressoLogo from '@/components/widgets/Logo'
 import NuxpressoSocial from '@/components/widgets/SocialShare'
 import NuxpressoMultiBox from '@/components/widgets/MultiBox'
 import NuxpressoVideo from '@/components/widgets/Video'
+import NuxpressoPortfolio from '@/components/widgets/Portfolio'
+import NuxpressoTimeline from '@/components/widgets/Timeline'
 
 import { mapState } from 'vuex'
 
@@ -144,7 +154,13 @@ export default {
         },
         widget(){
             return this.widgets.filter ( w => { return w.id === parseInt(this.$attrs.id) })[0]
-        }
+        },
+        btn_classe(){
+            let classe = this.theme.buttons_fg ? ' ' + this.theme.buttons_fg.tw_color : ' '
+            classe += this.theme.buttons_bg ? ' ' + this.theme.buttons_bg.tw_color : ' '
+            classe += ' ' + this.theme.buttons_bg.css +  ' ' + this.theme.buttons_fg.css
+            return classe
+        },
 
     },
     components: { 
@@ -158,7 +174,9 @@ export default {
         NuxpressoLogo , 
         NuxpressoSocial , 
         NuxpressoMultiBox,
-        NuxpressoVideo
+        NuxpressoVideo,
+        NuxpressoPortfolio,
+        NuxpressoTimeline
     },    
     methods:{
         calcFull(id){

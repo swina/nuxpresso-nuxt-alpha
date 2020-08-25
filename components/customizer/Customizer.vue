@@ -41,23 +41,23 @@
                             <i class="material-icons" v-if="customize.theme">expand_less</i>
                         </div>
                     </div>
-                    <div class="p-2 text-xs">    
-                        <!--<div v-if="themes">
+                    <div class="p-2 text-sm">    
+                        <div v-if="themes">
                             <select v-model="currentTheme" class="w-full p-1 text-xs mb-1">
                                 <option v-for="(tema,t) in themes" :value="tema.id">{{tema.name}}</option>
                             </select>
                         </div>
-                        -->
                         Name: <input class="xs" v-model="theme.name"/>
                         <div class="text-xs border-b-2 p-1 mt-2">Colors</div>
                         <div class="w-full flex flex-col">
                             <div v-for="(field,n) in themeKeys" class="flex flex-row p-1" @click="currentThemeField=field,currentCSS=theme[field].css,colors=true">
-                                <div class="w-2/3 text-xs">{{ themeFieldLabels[field] }}</div>
-                                <div :key="field" :class="boxColor(field) +' text-center border-2 h-6 w-6 p-1 rounded mr-2 text-xs ' + selectedField(field)">
+                                <div class="w-2/3 text-sm">{{ themeFieldLabels[field] }}</div>
+                                <div :key="field" :class="boxColor(field) +' text-center border-2 h-6 w-6 p-1 rounded mr-2 text-sm ' + selectedField(field)">
                                 </div>
                             </div>
                             <div>
-                                <button class="xs" @click="saveTheme">Save</button><button class="xs ml-2" @click="duplicateTheme">Create new</button>
+                                <button class="sm" @click="saveTheme">Save</button>
+                                <button class="sm ml-2" @click="duplicateTheme">Create new</button>
                             </div>
                         </div>
                     </div>
@@ -83,8 +83,9 @@
                 <transition name="slidedown">
                     <div>
                         <nuxpresso-header :class="theme.header_bg.tw_color + ' ' + theme.header_fg.tw_color" v-if="currentHeader" target="header" :element="currentHeader" :offset="yPos" @mouseout="currentHeader=null" @close="currentHeader=null"/>
+                        <div class="my-2"><input type="checkbox" class="xs" v-model="theme.header_fixed"><label>Fixed</label></div>
                         <div>
-                            <button class="xs" @click="saveTheme">Save</button>
+                            <button class="sm" @click="saveTheme">Save</button>
                         </div>
                     </div>
                 </transition>
@@ -112,7 +113,7 @@
                     <div>
                         <nuxpresso-header :class="theme.footer_bg.tw_color + ' ' + theme.footer_fg.tw_color" v-if="currentHeader" target="footer" :element="currentHeader" :offset="yPos" @mouseout="currentHeader=null" @close="currentHeader=null"/>
                         <div>
-                            <button class="xs" @click="saveTheme">Save</button>
+                            <button class="sm" @click="saveTheme">Save</button>
                         </div>
                     </div>
                 </transition>
@@ -136,7 +137,7 @@
                             <i class="material-icons">expand_less</i>
                         </div>
                     </div>
-                    <div class="p-2 text-xs">
+                    <div class="p-2 text-sm">
                         Select <select v-model="customizeMenu">
                             <option v-for="(menu,n) in menus" :value="menu">{{ menu.name }}</option>
                         </select>
@@ -147,25 +148,32 @@
                             </div>
                             -->
                             <div class="flex flex-row">
-                                <div class="w-2/3 text-xs">
-                                    Menu color
+                                <div class="w-2/3 text-sm">
+                                    Menu items color
                                 </div>
-                                <div :class="boxColor('foreground') + ' text-center border-2 border-black h-6 w-6 p-1 rounded mr-2 mb-1 text-xs '+ selectedField('foreground')" @click="currentMenuField='foreground',colors=!colors,menuClass('foreground')"></div>
+                                <div :class="boxColor('foreground') + ' text-center border-2 border-black h-6 w-6 p-1 rounded mr-2 mb-1 text-sm '+ selectedField('foreground')" @click="currentMenuField='foreground',colors=!colors,menuClass('foreground')"></div>
 
                             </div>
                             <div class="flex flex-row">
-                                <div class="w-2/3 text-xs">
-                                    Menu background
+                                <div class="w-2/3 text-sm">
+                                    Menu items background
                                 </div>
-                                <div :class="boxColor('background') +' text-center border-2 border-black h-6 w-6 p-1 rounded mr-2 mb-1 text-xs ' + selectedField('background')" @click="currentMenuField='background',colors=!colors,menuClass('background')"></div>
+                                <div :class="boxColor('background') +' text-center border-2 border-black h-6 w-6 p-1 rounded mr-2 mb-1 text-sm ' + selectedField('background')" @click="currentMenuField='background',colors=!colors,menuClass('background')"></div>
                                 
                             </div>
+                            <div class="flex flex-row">
+                                <div class="w-full text-sm">
+                                    Menu CSS<br/>
+                                    <input type="text" class="xs w-full" v-model="currentMenu.css" @input="updateMenus"/>
+                                </div>
+                            </div>
+                            <!--
                             Class
                             <textarea class="w-full" v-model="currentMenu.css"></textarea>
-                            
+                            -->
                         </div>
                         <div>
-                            <button class="mt-2 mr-2 xs" @click="saveMenus">Save</button>
+                            <button class="mt-2 mr-2 sm" @click="saveMenus">Save</button>
                         </div>
                     </div>
                 </div>
@@ -190,7 +198,7 @@
                             <i class="material-icons">expand_less</i>
                         </div>
                     </div>
-                    <div class="p-2 text-xs">
+                    <div class="p-2 text-sm">
                         Select <select v-model="currentWidget">
                             <option v-for="(widget,n) in widgets" :value="widget">{{ widget.name }}</option>
                         </select>
@@ -204,11 +212,11 @@
                         <div v-if="currentWidget" class="mt-4">
                             <div class="flex flex-col" v-for="(comp,c) in currentWidget.component">
                                 <div>
-                                    Widget title:<input type="text" clas="xs" v-model="currentWidget.title"/>
+                                    Widget title:<input type="text" class="text-sm" v-model="currentWidget.title"/>
                                 </div>
                                 <div> 
                                     Class : <br/>
-                                    <textarea class="xs w-full" v-model="currentWidget.class"></textarea>
+                                    <textarea class="text-sm w-full" v-model="currentWidget.class"></textarea>
                                 </div>
                                 <div>
                                     Component: <span class="font-bold">{{comp.__component.split('.')[0]}} &raquo; {{comp.__component.split('.')[1]}}</span>
@@ -216,11 +224,11 @@
                                 
                                 <div> 
                                     Class : <br/>
-                                    <textarea class="xs w-full" v-model="comp.class"></textarea>
+                                    <textarea class="sm w-full" v-model="comp.class"></textarea>
                                 </div>
                             </div>
                             <div>
-                                <button class="xs" @click="saveWidget">Save</button>
+                                <button class="sm" @click="saveWidget">Save</button>
                             </div>
                         </div>
                     </div>
@@ -277,7 +285,7 @@
             
             <div class="w-full flex flex-col text-xs relative" v-if="customize.templates">
                 <select v-model="currentTemplate">
-                    <option v-for="(template,n) in templates" :value="template">{{ template.name }}</option>
+                    <option v-for="(template,n) in templates" :value="template" :selected="currentTemplate ? template.id===currentTemplate.id : false">{{ template.name }}</option>
                 </select>
                 <div v-if="currentTemplate" class="mt-2">
                     <div class="flex flex-row border border-black w-24 m-auto mb-2">
@@ -285,11 +293,13 @@
                         <div class="m-auto">{{n}}</div>
                         </div>
                     </div>
-                    Columns <input type="range" min="1" max="3" v-if="currentTemplate" v-model="cols"/> {{ cols }}
-                    <transition name="slideleft">
-                        <nuxpresso-pagebuilder v-if="currentTemplate && customize.templates" :template="currentTemplate" :cols="cols"/>
+                    Columns <input type="range" min="1" max="3" v-if="currentTemplate" v-model="cols"/> {{ cols }} <span class="cursor-pointer text-xs underline absolute right-0" v-if="!showTemplate" @click="showTemplate=!showTemplate">view</span>
+                    
+                    <transition name="slidedown">
+                        <nuxpresso-pagebuilder v-if="showTemplate && currentTemplate && customize.templates" :template="currentTemplate" :cols="cols" @save="saveTemplate" @close="showTemplate=false"/>
                     </transition>
                 </div>
+                <div v-if="current_article">Current template: <span class="font-bold p-1 rounded bg-gray-300">{{ current_article.template.name }}</span></div>
             </div>
         </div>
 
@@ -306,7 +316,7 @@
         </transition>
 
         <transition name="fade">
-            <div style="transform: translateX(-75%);left:75%;" class="border-l-4 border-blue-500 fixed bottom-0 m-auto shadow-xl mb-2 bg-white text-left p-4 w-1/2" v-if="message">
+            <div style="transform: translateX(-75%);left:75%;" class="border-l-4 border-blue-500 fixed bottom-0 m-auto shadow-xl mb-2 bg-white text-left p-4 w-1/2 z-50" v-if="message">
             {{ message }}
             </div>
         </transition>
@@ -352,6 +362,7 @@ export default {
         customizeMenu: null,
         currentMenuField: null,
         currentHeader: null,
+        showTemplate: false,
         currentWidget: null,
         yPos: 0,
         cols: 1,
@@ -375,34 +386,57 @@ export default {
             main_bg : 'Page background',
             menu_fg : 'Menu foreground',
             link_fg : 'Link foreground',
-            heading_fg : 'Heading (H1..) foreground'
+            heading_fg : 'Heading (H1..) foreground',
+            buttons_fg : 'Buttons foreground',
+            buttons_bg : 'Buttons background'
         }
     }),
     components: { NuxpressoSettings , NuxpressoPalette , NuxpressoDarkmode , NuxpressoPagebuilder , NuxpressoHeader , NuxpressoMedia , NuxpressoWidget },
     watch:{
+        currentTheme ( v ){
+            let preview_theme = this.themes.filter ( theme => {
+                return theme.id === parseInt(v)
+            })
+            this.$store.dispatch ( 'loadTheme' , preview_theme[0] )
+        },
         currentTemplate(v){
             let c =  0
             this.currentTemplate.fields.length ?  c++ : c+=0
             this.currentTemplate.fields_col_2.length ? c++ : c+=0
             this.currentTemplate.fields_col_3.length ? c++ : c+=0
             this.cols = c
+            this.showTemplate = true
+        },
+        currentMenu(v){
+            this.menus.map ( m => {
+                if ( parseInt(m.id) === parseInt(v.id) ){
+                    console.log ( m.css + ' => ' +  v.css )
+                    m = v
+                }
+            })
         },
         customizeMenu(v){
-            console.log ( v )
             let vm = this
             this.$axios.$get('menus/' +  v.id ).then ( response=>{
                 vm.currentMenu = response
-                //console.log ( response)
             })
+        },
+        customize(v){
+            if ( v.templates ){
+                this.currentTemplate = this.current_article ? this.current_article.template : null
+            }
         },
         message(v){
             if ( v ){
                 window.setTimeout(()=>{ this.message = '' }, 4000)
             }
+        },
+        current_article(v){
+            this.currentTemplate = v.template
         }
     },
     computed:{
-        ...mapState ( ['theme' , 'themes' , 'templates' , 'menus' ,'widgets'] ),
+        ...mapState ( ['theme' , 'themes' , 'templates' , 'menus' ,'widgets' , 'current_article'] ),
         settingsKeys(){
             return Object.keys(this.settings)
         },
@@ -432,6 +466,14 @@ export default {
 
     },
     methods: {
+        updateMenus(){
+            this.menus.map ( (m,index) => {
+                if ( parseInt(m.id) === parseInt(this.currentMenu.id) ){
+                    console.log ( m.css + ' => ' +  this.currentMenu.css )
+                    this.menus[index].css = this.currentMenu.css
+                }
+            })
+        },
         saveSettings(){
             let vm = this 
 
@@ -468,6 +510,18 @@ export default {
             this.$axios.$put ( 'widgets/' + vm.currentWidget.id , vm.currentWidget ).then ( response => {
                 vm.$store.dispatch ( 'loadWidgets' )
                 vm.message = 'Widget updated successfully'
+            }).catch ( error => {
+                vm.message = 'An error occured. Check the console'
+                console.log ( error )
+            })
+        },
+        saveTemplate(){
+            let vm = this
+            this.$axios.$put ( 'templates/' + vm.currentTemplate.id , vm.currentTemplate ).then ( response => {
+                vm.$store.dispatch ( 'loadTemplates' )
+                vm.message = 'Template updated successfully'
+                let current_article = vm.current_article
+                current_article.template = vm.currentTemplate
             }).catch ( error => {
                 vm.message = 'An error occured. Check the console'
                 console.log ( error )
@@ -568,7 +622,7 @@ export default {
                         tw_color : this.currentThemeField.indexOf('bg') > -1 ? 'bg-' + color + t : 'text-' + color + t
                     }
                 }
-                this.colors = false
+                //this.colors = false
             }
         },
         setCSS(v){
@@ -576,7 +630,7 @@ export default {
             if ( this.customize.theme )
                 this.theme[this.currentThemeField].css = v
             if ( this.customize.menus ){
-                this.currentMenu[this.currentMenuField].css =this.currentCSS
+                this.currentMenu[this.currentMenuField] ? this.currentMenu[this.currentMenuField].css = this.currentCSS : ''
                 this.menus.map ( m => { 
                     if ( parseInt(m.id) === parseInt(this.currentMenu.id) ){
                         if ( m[this.currentMenuField] ){
@@ -589,6 +643,23 @@ export default {
             if ( this.customize.darkmode )
                 this.settings.darkmode_settings[this.currentThemeField].css = v
         },
+        /* to be implemented
+        setOpacity(v){
+            console.log ( v )
+            if ( this.customize.theme ){
+                let opacity = 'bg-opacity-' + v + ' '
+                let css = this.currentCSS.match(/ bg-opacity(.*)/)
+                if ( css ){
+                    this.currentCSS = this.currentCSS.replace( new RegExp(css[0].replace(' ','') , "g") , opacity)
+                    //this.currentCSS += opacity
+                } else {
+                    this.currentCSS += ' ' + opacity
+                }
+                this.theme[this.currentThemeField].css = this.currentCSS
+                console.log ( this.currentCSS )
+            }
+        },
+        */
         selectedField ( field ){
             if ( this.customize.theme )
                 return field === this.currentThemeField ? 'border-red-500' : 'border-gray-200'
@@ -615,6 +686,7 @@ export default {
         
     },
     mounted(){
+        this.currentTemplate = this.current_article ? this.current_article.template : null
         if ( window.localStorage.getItem ( 'nuxpresso-jwt') ){
             this.$axios.defaults.headers.common = {
                 'Authorization': window.localStorage.getItem('nuxpresso-jwt')
@@ -624,6 +696,7 @@ export default {
                 vm.settings = response
                 vm.$store.dispatch ( 'updateSettings' , response )
             })
+            //this.$store.dispatch ( 'loadComponents' )
         } else {
             this.$emit('login')
         }

@@ -7,16 +7,16 @@
       enter-active-class="animated slide-in-active"
       leave-active-class="animated slide-out-active">
         <div :key="'slide_' + i" v-for="(slide,i) in $attrs.slides" :class="'relative w-full flex items-center bg-center bg-no-repeat bg-cover nuxpresso-slider h-full ' + currentBackground" :style="'min-height:' + height + ' ' + bgSlide(slide)" v-if="currentIndex === i">
-            <div :class="'centered w-4/5 md:m-0 md:w-3/4 lg:w-3/5 absolute p-2 md:p-10 ' + boxCss(slide)">
+            <div :class="'centered w-auto absolute ' + boxCss(slide)">
                 <div :class="'w-full flex flex-col-reverse md:flex-row flex-shrink flex-wrap ' + justify(slide)">
                     <div>
-                        <h2 :class="classeOverlay(slide,'title') + ' ' +  sliderClass('title',i)">{{slide.title}}</h2>
+                        <h2 :class="classeOverlay(slide,'title') + ' ' +  sliderClass('title',i)" v-html="slide.title"></h2>
                         <h3 :class="classeOverlay(slide,'subtitle') + ' ' + sliderClass('subtitle',i)">{{slide.subtitle}}</h3>
                         <p v-if="slide.description" :class="classeOverlay(slide,'description') + ' ' + sliderClass('description',i)">{{slide.description}}</p>
                         <div class="mt-4" v-if="slide.button">
                             <nuxt-link
                                 :to="slide.button_link">
-                            <button :class="sliderClass('button',i)">{{slide.button}}</button>
+                            <button :class="sliderClass('button',i) + btn_classe">{{slide.button}}</button>
                             </nuxt-link>
                         </div>
                     </div>
@@ -106,7 +106,7 @@ export default {
         //this.images = this.$attrs.slides.map( slide => { return slide.image.url } )
         if ( this.$attrs.slider.autoplay )
             this.startSlide()
-        this.reSize()
+        //this.reSize()
         let offset = document.querySelector('header').clientHeight
         this.height = window.innerHeight - parseInt(offset) + 'px;'
         let vm = this
@@ -121,8 +121,6 @@ export default {
         reSize(){
             let offset = document.querySelector('header').clientHeight
             this.height = window.innerHeight - parseInt(offset) + 'px;'
-            //let w = document.getElementById('nxslider')
-            //this.height =  w ? ((w.clientWidth)*9/16) + 'px;' : '35rem;'
         },
         startSlide: function() {
             this.timer = setInterval(this.next, this.$attrs.slider.delay ? parseInt(this.$attrs.slider.delay)*1000 : this.delay);
@@ -187,6 +185,12 @@ export default {
         currentBackground(){
             if ( this.slide )
             return this.slide.background_color ? this.$colorClass ( 'bg' , this.slide.background_color , this.slide.background_tone ) : 'bg-black'
+        },
+        btn_classe(){
+            let classe = this.theme.buttons_fg ? ' ' + this.theme.buttons_fg.tw_color : ' '
+            classe += this.theme.buttons_bg ? ' ' + this.theme.buttons_bg.tw_color : ' '
+            classe += ' ' + this.theme.buttons_bg.css +  ' ' + this.theme.buttons_fg.css
+            return classe
         },
         
     }

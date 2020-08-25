@@ -7,6 +7,7 @@ query Articles ( $slug : String){
     homepage
     random_image
     tags
+
     user {
       firstname
       lastname
@@ -14,10 +15,14 @@ query Articles ( $slug : String){
     image { 
         name 
         url
+        caption
+        alternativeText
     }
     gallery {
         name
         url
+        caption
+        alternativeText
     }
     image_title
     updated_at
@@ -37,6 +42,7 @@ query Articles ( $slug : String){
       id
       name
       class
+      breadcrumb
       fields {
         name
         class

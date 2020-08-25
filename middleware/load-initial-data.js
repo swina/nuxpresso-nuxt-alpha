@@ -7,11 +7,11 @@ export default async function ( { store , from } ){
             store.dispatch ( 'loadSettings' ),
             store.dispatch ( 'loadMenus' ),
             store.dispatch ( 'loadTemplates' ),
-            store.dispatch ( 'loadHomepage' )
+            store.dispatch ( 'loadHomepage' ),
+            store.dispatch ( 'loadCategories' ),
             //store.dispatch ( 'loadWidgets' ),
             /*
             store.dispatch ( 'loadLayout' ),
-            store.dispatch ( 'loadCategories' ),
             store.dispatch ( 'loadIcons' ),
             store.dispatch ( 'loadThemes' )
             */

@@ -75,8 +75,12 @@ export default {
             //return classe
         },
         background(){
-            if ( ! this.theme.footer_bg.image ) return ''
+            if ( ! this.theme.footer_bg.image ) return ''//this.$store.state.header_offset ? 'margin-top:-' + this.$store.state.header_offset.split(':')[1] : ''
+            //let style =
+            //    this.$store.state.header_offset ? 'margin-top:-' + this.$store.state.header_offset.split(':')[1] : '' 
+            //style += 
             return 'background-image:url(' + this.theme.footer_bg.image.url + ');background-position:center center;background-size:cover;background-repeat:no-repeat'
+            //return style
         },
         year(){
             return new Date().getFullYear()

@@ -1,5 +1,5 @@
 <template>
-<div class="fixed top-0 bg-gray-700 text-white p-4 w-1/3 z-20 cursor-pointer" style="margin-left:25%">
+<div class="fixed top-0 bg-gray-700 text-white p-4 w-1/3 z-50 cursor-pointer" style="margin-left:25%">
     
         <div class="flex flex-row justify-start">
             <div>
@@ -23,6 +23,11 @@
                         </div>            
                     </div>
                 </div>
+                <!--
+                <div class="m-auto text-sm">
+                    Opacity <input type="range" min="0" max="100" step="25" class="text-gray-300" v-model="opacity"/> {{getopacity()}}
+                </div>
+                -->
             </div>
             <div v-if="$attrs.field && $attrs.customize.theme">
                 Image <i class="material-icons text-xs" v-if="!$attrs.field.image" @click="$emit('media')">add</i>
@@ -54,10 +59,16 @@ export default {
             verydark: 800 ,
             extradark: 900 
         },
-        css: ''
+        css: '',
+        opacity: 100
     }),
     mounted(){
         this.css = this.$attrs.css
+    },
+    watch: {
+        opacity(v){
+            this.$emit ( 'opacity' , v )
+        }
     },
     methods:{
         setCSS(){

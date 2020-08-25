@@ -7,13 +7,15 @@ query Articles {
     homepage
     random_image
     tags
-    image { 
-        name 
-        url
+    image {
+      url
+      caption
+      alternativeText
     }
     gallery {
-        name
-        url
+      url
+      caption
+      alternativeText
     }
     image_title
     updated_at

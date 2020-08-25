@@ -26,6 +26,7 @@ query Menus {
       density
       css
     }
+    
     text_color {
       color
       density

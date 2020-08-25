@@ -7,7 +7,14 @@ query Articles ( $limit : Int, $start : Int ) {
     updated_at
     random_image
     image {
-        url
+      url
+      caption
+      alternativeText
+    }
+    gallery {
+      url
+      caption
+      alternativeText
     }
     user {
       firstname

@@ -1,5 +1,8 @@
 <template>
-    <img v-if="image" :src="image" :alt="alt" :title="alt"/>
+    <span v-if="image">
+        <img v-if="image" class="m-auto" :src="image" :alt="alt" :title="alt"/>
+        <span v-else>Loading ...</span>
+    </span>
 </template>
 
 <script>

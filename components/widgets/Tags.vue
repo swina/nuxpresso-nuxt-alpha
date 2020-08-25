@@ -3,6 +3,7 @@
         {{ $attrs.title }}:
         <span :class="'nuxpresso-tag nuxpresso-tag-' + $attrs.title.toLowerCase()" v-for="(item,t) in $attrs.items" :key="$attrs.title + '_' + t"> 
             <nuxt-link
+                v-if="item"
                 :to="$attrs.path + taxonomy(item)"
                 :title="display(item)">
                 {{ display(item) }}

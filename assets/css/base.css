@@ -16,6 +16,7 @@
     clip-path: polygon(50% 0,100% 0,100% 100%,51% 84%,0 100%,0 0);
     min-height:11rem;
     height:11rem;
+    padding-bottom:14rem!important;
 }
 
 .clip-path-circle {

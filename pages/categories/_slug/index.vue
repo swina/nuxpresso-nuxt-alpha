@@ -1,6 +1,6 @@
 <template>
     <section v-if="articles">
-        <h1 :class="classe('text','heading_color') + '  ml-2 md:ml-4'">{{category.name}}</h1>
+        <h1 :class="theme.heading_fg.tw_color    + '  ml-2 md:ml-4'">{{category.name}}</h1>
         <!--<h1 class="ml-2 md:ml-4">{{articles[0].categories[0].name}}</h1>--->
         <Loop v-if="articles" :articles="articles"/>
         

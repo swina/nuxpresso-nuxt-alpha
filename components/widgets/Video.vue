@@ -1,7 +1,8 @@
 <template>
-    <div v-if="$attrs.video" :class="$attrs.classe" :style="size">
-        <iframe v-if="youtube" :class="'nuxpresso-video w-full h-full ' + $attrs.classe" :src="'https://www.youtube.com/embed/' + embed + '?rel=0'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div v-if="$attrs.video" :class="$attrs.classe + ' nuxpresso-16-9'">
+        <iframe v-if="youtube" :class="'nuxpresso-video ' + $attrs.classe" :src="'https://www.youtube.com/embed/' + embed + '?rel=0'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         <iframe v-if="vimeo" :src="'https://player.vimeo.com/video/' + embed" :class="'nuxpresso-video w-full h-full ' + $attrs.classe" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        <!--
         <div v-if="!youtube && !vimeo" :class="'p-video-player nuxpresso-video ' + $attrs.classe">
             <video class="p-video-player__media w-full h-full">
                 <source :src="$attrs.video" />
@@ -21,10 +22,12 @@
                 <span class="p-video-player__time-all">{{ getDuration }}</span>
             </div>
         </div>
+        -->
     </div>
 </template>
 
 <script>
+var video_id
 export default {
     name: 'NuxpVideo',
     data:()=>( {
@@ -40,14 +43,13 @@ export default {
       duration: 0,
       isPlaying: false,
       isGrabbingSeekbar: false,
+      element: null
     }),
     beforeMount(){
-      this.videoID = this.$randomID()
-      this.$attrs.video.indexOf('youtube') > -1 ? this.youtube = true : this.youtube = false
-      this.$attrs.video.indexOf('vimeo') > -1 ? this.vimeo = true : this.vimeo = false
+      this.$attrs.video.indexOf('youtube') > -1 ? this.youtube = true : this.custom = true
+      this.$attrs.video.indexOf('vimeo') > -1 ? this.vimeo = true : this.custom = true
     },
     mounted: function() {
-      // init
       if ( this.$attrs.video ){
         
         if ( !this.youtube && !this.vimeo ){
@@ -91,15 +93,7 @@ export default {
           }
           return this.$attrs.video
       },
-      height(){
-        console.log ( window.innerHeight )
-        //if ( this.videoID )
-        //  console.log ( this.videoID )
-          //return 'min-height:' + (document.getElementById(this.videoID).clientWidth * 9 / 16)+'px;'
-        let width = window.innerHeight * 16 / 9;
-        return 'height:360px;width:640px;'//'height:' + (window.innerHeight * .70) + 'px;width:' + width + 'px;'
-
-      },
+      
       getProgressRate: function() {
         return this.time / this.duration;
       },
@@ -111,6 +105,7 @@ export default {
       },
     },
     methods: {
+     
       play: function() {
         this.media.play();
         this.isPlaying = true;
@@ -173,6 +168,7 @@ export default {
 </script>
 
 <style scoped>
+
 .p-video-player__media {
   width: 100%;
   display: block;

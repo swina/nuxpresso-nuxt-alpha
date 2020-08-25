@@ -1,7 +1,7 @@
 <template>
-    <div class="w-full absolute top-0 left-0 px-24 z-20">
+    <div class="w-full absolute top-0 left-0 px-24 z-50">
     
-        <div :class="classe + ' p-0 flex flex-col absolute shadow-lg w-full md:w-1/4'" v-if="show" @click="show=!show,$emit('leave')" :style="position()" @mouseleave="$emit('leave')">
+        <div :class="classe + ' p-0 flex flex-col absolute  w-full md:w-1/4'" v-if="show" @click="show=!show,$emit('leave')" :style="position()" @mouseleave="$emit('leave')">
             
             <div class="text-xl border-b mb-2" v-if="!$attrs.dropdown.coords">{{$attrs.dropdown.name}}</div>
 
@@ -31,7 +31,7 @@ export default {
         classe(){
             //return ''
             let classe = this.$attrs.dropdown.menu.background ?
-                this.$attrs.dropdown.menu.background.tw_color + ' ' + this.$attrs.dropdown.menu.background.css : ''
+                this.$attrs.dropdown.menu.background.tw_color + ' ' + this.$attrs.dropdown.menu.background.css + ' ' + this.$attrs.dropdown.menu.css : ''
 
             //let classe = this.$attrs.dropdown.menu.background_color ? 
             //    this.$colorClass ( 'bg' , this.$attrs.dropdown.menu.background_color.color , this.$attrs.dropdown.menu.background_color.density ) + ' ' + this.$attrs.dropdown.menu.background_color.css : ''

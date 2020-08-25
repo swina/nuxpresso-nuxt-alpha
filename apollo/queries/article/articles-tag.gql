@@ -6,6 +6,13 @@ query Articles ( $tag: String ) {
     excerpt
     image {
       url
+      caption
+      alternativeText
+    }
+    gallery {
+      url
+      caption
+      alternativeText
     }
     user {
       firstname

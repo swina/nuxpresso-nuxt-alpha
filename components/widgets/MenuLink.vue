@@ -1,25 +1,23 @@
 <template>
-    <span>
+    <span :class="$attrs.orientation==='vertical' ? $attrs.classe: ''">
         <nuxt-link 
-            v-if="$attrs.item.link_url"
+            v-if="!$attrs.item.link_url"
             :id="'link_' + $attrs.item.name"
             :to="toLink($attrs.item)"
-            :class="$attrs.classe + ' mx-2'">
+            :class="itemClass + ' mx-2'">
             <span @mouseover="over($event,$attrs.item)">{{ $attrs.item.name  }}</span>
         </nuxt-link>
-
-        <!--<a  
-            v-if="$attrs.item.link_url"  
-            :href="$attrs.item.link_url" 
-            :class="$attrs.classe + ' mx-2'">
-            <span @mouseover="over($event,$attrs.item)">{{ $attrs.item.name }}</span>
-        </a>-->
     </span>
 </template>
 
 <script>
 export default {
     name: 'NuxpMenuLink',
+    computed:{
+        itemClass(){
+            return this.$attrs.orientation === 'horizontal' ? this.$attrs.classe : this.$attrs.classe
+        }
+    },
     methods: {
         toLink ( item ){
             return item.article ?

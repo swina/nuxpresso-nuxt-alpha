@@ -3,14 +3,11 @@ query Articles ($slug:String) {
     id
     slug
     title
+    excerpt
     content
     tags
       categories {
         name
-        SEO {
-          title
-          description
-        }
       }
     parent {
       slug
@@ -19,7 +16,6 @@ query Articles ($slug:String) {
     image {
       url
     }
-    image_title
     user {
       firstname
       lastname

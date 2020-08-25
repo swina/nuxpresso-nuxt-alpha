@@ -85,6 +85,36 @@
                     item.link_url ? item.link_url : false
     }
 
+    Vue.prototype.$btnClass = function ( theme ){
+        let classe = theme.buttons_fg ? ' ' + theme.buttons_fg.tw_color : ' '
+            classe += theme.buttons_bg ? ' ' + theme.buttons_bg.tw_color : ' '
+            classe += ' ' + theme.buttons_bg.css +  ' ' + theme.buttons_fg.css
+            return classe
+    }
+
+    Vue.prototype.$cookie = function(cname){
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+            }
+        }
+        return ''
+    }
+
+    Vue.prototype.$setCookie = function(cname,days){
+        let d = new Date()
+        d.setTime(d.getTime() + (parseInt(days) * 24 * 60 * 60 * 1000))
+        let expiration = 'expires=' + d.toUTCString()
+        document.cookie = cname + '=gpdr;' + expiration + ';path=/'
+    }
+
     /* used for vue-here-map */
     Vue.prototype.$loadMapScript = function ( ) { // eslint-disable-line no-param-reassign
         return new Promise(function (resolve, reject) {
@@ -127,4 +157,44 @@
         }, duration);
         };
     }
+
+    Vue.prototype.$arrayGroup = function ( arr , key , summ = {} ){
+        // @arr = array of objects (required)
+        // @key = key to group (required)
+        // @summ = key to sum
+        // group array of objects on given key, sum on key , count for given key
+        // return object grouped
+        //    keys = grouped keys
+        //    values = values for the each grouped keys
+        //    sums = sum of values of field x for each grouped keys
+        //    counters = counter for each grouped key
+        if ( arr != 'undefined' ){
+          let counter = 0
+          let sums = []
+          let counters = []
+          let sum_field = summ
+          let total = 0
+          let grouped = arr.reduce((h, item) => Object.assign(h, { [item[key]]:( h[item[key]] || [] ).concat(item) }), {})
+          let keys = Object.keys(grouped)
+          if ( summ ){
+            Object.values(grouped).map(item=>{
+              total = 0
+              counter = 0
+              item.map(i=>{
+                counter++
+                total += parseFloat(i[sum_field])
+              })
+              sums.push(total)
+              counters.push(counter)
+            })
+          }
+          return {
+            keys: Object.keys(grouped),
+            values: Object.values(grouped),
+            sums: sums,
+            counters: counters
+          }
+        }
+        return null
+      }
 
