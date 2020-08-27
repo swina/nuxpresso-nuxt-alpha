@@ -187,7 +187,7 @@ module.exports = {
       'nuxt.config.js'
     ],
     options: {
-      whitelistPatterns: [/^bg/,/^text/,/^border/,/^hover/,/^m/,/^p/,/^flex/,/^order/,/^md:/,/^lg:/]
+      whitelistPatterns: [/^bg/,/^text/,/^border/,/^hover/,/^m/,/^p/,/^flex/,/^order/,/^md:/,/^lg:/,/^w/]
     }
   }
 }
