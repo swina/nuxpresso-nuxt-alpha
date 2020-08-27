@@ -352,7 +352,7 @@ a.nav-primary-item:hover {
 }
 
 .material-icons {
-    @apply text-blue-400;
+    @apply text-gray-700;
 }
 
 .nuxpresso-widget-wrapper {

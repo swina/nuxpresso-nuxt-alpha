@@ -25,7 +25,8 @@ export const state = () => ({
     icons: null,
     current_article: null,
     header_offset: 0,
-    components: null
+    components: null,
+    media: null
 })
 
 export const mutations = {
@@ -76,6 +77,9 @@ export const mutations = {
     },
     SET_COMPONENTS ( state , components ){
         state.components = components
+    },
+    SET_MEDIA ( state , media ){
+        state.media = media
     }
 }
 
@@ -138,6 +142,9 @@ export const actions = {
     async loadTemplates ( { commit } ){
         const response = await this.app.apolloProvider.defaultClient.query ( { query : templatesQuery } )
         commit ( 'SET_TEMPLATES' , response.data.templates ) 
+    },
+    async loadMedia ( { commit } , media ){
+        commit ( 'SET_MEDIA' , media )
     },
     current_template ( { commit } , template ){
         commit ( 'SET_CURRENT_TEMPLATE' , template )

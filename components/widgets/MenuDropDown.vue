@@ -7,13 +7,20 @@
 
             <nuxt-link 
                 :key="'menu_' + i"
-                v-if="toLink(item)"
+                v-if="toLink(item) && !item.link_url"
                 v-for="(item,i) in $attrs.dropdown.items"
                 :to="toLink(item)"
                 :class="linkClasse">
                 <span v-html="item.name.replace('\n','<br/>')"></span>
             </nuxt-link>
-            
+            <a 
+                :key="'menu_' + i"
+                v-for="(item,i) in $attrs.dropdown.items"
+                v-if="item.link_url" 
+                :href="item.link_url" 
+                :class="linkClasse">
+                <span v-html="item.name.replace('\n','<br/>')"></span>
+            </a>
         </div>
 
     </div>

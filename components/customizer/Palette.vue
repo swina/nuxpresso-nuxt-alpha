@@ -30,7 +30,7 @@
                 -->
             </div>
             <div v-if="$attrs.field && $attrs.customize.theme">
-                Image <i class="material-icons text-xs" v-if="!$attrs.field.image" @click="$emit('media')">add</i>
+                Image <i class="material-icons text-white text-sm border rounded-full" v-if="!$attrs.field.image" @click="$emit('media')">add</i>
                 <img :src="$attrs.field.image.url" v-if="$attrs.field.image" @click="$emit('media')"/>
                 <span v-if="$attrs.field.image" class="text-xs" @click="remove">Remove</span>
             </div>

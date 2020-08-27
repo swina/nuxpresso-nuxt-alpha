@@ -214,7 +214,12 @@
                             <i class="material-icons absolute top-0 right-0" @click="currentWidget=null">highlight_off</i>
                             <div>
                                 <span v-if="currentWidget">Widget: {{ currentWidget.name }}</span>
-                                <nuxpresso-widget class="mt-2" v-if="currentWidget" :nuxwidget="currentWidget.id" :id="currentWidget.id"/>
+                                <nuxpresso-widget  
+                                    :widget="currentWidget" 
+                                    :timer="$hasTimer(currentWidget.class)"
+                                    :nuxwidget="currentWidget.id" 
+                                    :id="currentWidget.id"/>
+                                <!--<nuxpresso-widget class="mt-2" v-if="currentWidget" :nuxwidget="currentWidget.id" :id="currentWidget.id"/>-->
                             </div>
                         </div>
                         <div v-if="currentWidget" class="mt-4">
@@ -703,6 +708,10 @@ export default {
             this.$axios.$get('settings').then ( response => {
                 vm.settings = response
                 vm.$store.dispatch ( 'updateSettings' , response )
+            })
+            this.$axios.$get('upload/files').then ( response => {
+                console.log ( response )
+                vm.$store.dispatch ( 'loadMedia' , response )
             })
             //this.$store.dispatch ( 'loadComponents' )
         } else {

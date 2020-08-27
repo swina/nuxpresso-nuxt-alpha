@@ -8,7 +8,7 @@
                 <div :class="'flex flex-col w-full h-full nuxpresso-multi-box-content ' + $attrs.component.class">
                     <img v-if="feature.image" :src="feature.image.url" class="nuxpresso-box-image"/>
                     <i slot="line_1" v-if="feature.material_icon" style="font-size:3rem;" class="nuxpresso-box-icon material-icons">{{feature.material_icon}}</i>
-                    <h3 class="nuxpresso-box-title" slot="line_2">{{feature.title}}</h3>
+                    <h3 :class="theme.heading_fg.tw_color + ' font-black nuxpresso-box-title'" slot="line_2">{{feature.title}}</h3>
 
                     <h3 class="nuxpresso-box-price" slot="line_3" v-if="feature.price">
                         <span v-if="feature.sale" class="line-through text-xs">{{feature.price}}</span>
@@ -42,7 +42,7 @@
                     <i slot="line_1" v-if="feature.material_icon" style="font-size:3rem;" class="nuxpresso-box-icon material-icons">{{feature.material_icon}}</i>
                 </div>
                 <div class="w-auto p-2 nuxpresso-multi-box-text relative">
-                    <h3 class="nuxpresso-box-title" slot="line_2">{{feature.title}}</h3>
+                    <h3 :class="theme.heading_fg.tw_color + ' nuxpresso-box-title'" slot="line_2">{{feature.title}}</h3>
 
                     <h3 class="nuxpresso-box-price" slot="line_3" v-if="feature.price">
                         <span v-if="feature.sale" class="line-through text-xs">{{feature.price}}</span>

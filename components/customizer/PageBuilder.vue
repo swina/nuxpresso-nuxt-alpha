@@ -74,6 +74,14 @@
 
             <div><span v-if="widget">Widget: {{ widget.name }}</span><span v-if="menu">Menu: {{ menu.name }}</span></div>
             <nuxpresso-widget class="mt-2" v-if="widget" :nuxwidget="widget.id" :id="widget.id"/>
+
+            <nuxpresso-widget  
+                v-if="widget"
+                :widget="widget" 
+                :timer="$hasTimer(widget.class)"
+                :nuxwidget="widget.id" 
+                :id="widget.id"/>
+
             <NuxpressoMenu 
                 :class="'nupresso-menu-' + $slugify(menu.name)"
                 :orientation="orientation"
