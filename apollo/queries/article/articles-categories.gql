@@ -7,6 +7,7 @@ query Category($id: ID!){
       title
       content
       tags
+      lang
       parent {
         slug
         title

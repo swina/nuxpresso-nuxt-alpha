@@ -1,7 +1,9 @@
 {
-  "name": "nuxpresso-1.0.0",
-  "version": "1.0.0",
-  "description": "NuxtJS/Strapi/TailwindCSS/GraphQL",
+  "name": "nuxpresso-0.0.1",
+  "version": "0.0.1",
+  "description": "NuxtJS/Strapi/TailwindCSS/GraphQL Full Static Site Generator",
+  "author" : "Antonio Nardone",
+  "license" : "MIT",
   "private": true,
   "scripts": {
     "dev": "nuxt",

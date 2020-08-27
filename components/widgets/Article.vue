@@ -9,7 +9,13 @@
             <template v-for="(splitted,r) in contentWidgets">
                 <div :key="'splitted_' + r" v-if="splitted.length===1" v-html="$md.render(splitted[0])"></div>
                 <div :key="'splitted_' + r" v-if="splitted.length > 1">
-                    <nuxpresso-widget v-if="splitted[0].indexOf ('unsplash') < 0" :id="splitted[0]"/>
+                    <nuxpresso-widget  
+                            v-if="splitted[0].indexOf ('unsplash') < 0" 
+                            :widget="$widget(widgets,splitted[0])" 
+                            :timer="$hasTimer($widget(widgets,splitted[0]).class)"
+                            :nuxwidget="splitted[0]" 
+                            :id="splitted[0]"/>
+                    <!--<nuxpresso-widget v-if="splitted[0].indexOf ('unsplash') < 0" :id="splitted[0]"/>-->
                     <img class="m-auto" v-if="splitted[0].indexOf('unsplash')>-1" :src="'https://source.unsplash.com/random/' + splitted[0].split('/')[1]"/>
                     <div v-html="$md.render(splitted[1])"></div>
                 </div>
@@ -20,6 +26,7 @@
 
 <script>
 import NuxpressoWidget from '@/components/widgets/Widget'
+import { mapState } from 'vuex'
 export default {
     name: 'NuxpArticle',
     data:()=>({
@@ -28,6 +35,9 @@ export default {
         contentWidget: null
     }),
     components: { NuxpressoWidget },
+    computed:{
+        ...mapState ( [ 'widgets'] )
+    },
     mounted(){
         this.content = this.$attrs.content
         let content = this.$attrs.content

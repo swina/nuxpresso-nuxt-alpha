@@ -7,6 +7,7 @@ query Articles ( $template : Int){
     homepage
     random_image
     tags
+    lang
     user {
       username
     }

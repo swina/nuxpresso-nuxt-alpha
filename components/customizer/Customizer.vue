@@ -1,5 +1,5 @@
 <template>
-    <div class="relative min-h-screen">
+    <div class="relative min-h-screen z-50">
         <div class="flex flex-col items-center border-b flex py-2 px-4 cursor-pointer text-left">
             <div class="flex flex-row w-full items-center" @click="customize.settings=!customize.settings,resetCollapse('settings')">
                 <div class="w-3/4 text-left">Settings</div>
@@ -159,6 +159,14 @@
                                     Menu items background
                                 </div>
                                 <div :class="boxColor('background') +' text-center border-2 border-black h-6 w-6 p-1 rounded mr-2 mb-1 text-sm ' + selectedField('background')" @click="currentMenuField='background',colors=!colors,menuClass('background')"></div>
+                                
+                            </div>
+                            
+                            <div class="flex flex-row">
+                                <div class="w-2/3 text-sm">
+                                    Menu background
+                                </div>
+                                <div :class="boxColor('menu_background') +' text-center border-2 border-black h-6 w-6 p-1 rounded mr-2 mb-1 text-sm ' + selectedField('menu_background')" @click="currentMenuField='menu_background',colors=!colors,menuClass('menu_background')"></div>
                                 
                             </div>
                             <div class="flex flex-row">
@@ -599,7 +607,7 @@ export default {
                                 color: color,
                                 density: tone ? this.density[tone] : '',
                                 css: this.currentCSS,
-                                tw_color : this.currentMenuField === 'background' ? 'bg-' + color + t : 'text-' + color + t
+                                tw_color : this.currentMenuField.indexOf('background') > -1  ? 'bg-' + color + t : 'text-' + color + t
                             }
                     this.menus.map ( m => { 
                         if ( parseInt(m.id) === parseInt(this.currentMenu.id) ){
@@ -607,7 +615,7 @@ export default {
                                 color: color,
                                 density: tone ? this.density[tone] : '',
                                 css: this.currentCSS,
-                                tw_color : this.currentMenuField === 'background' ? 'bg-' + color + t : 'text-' + color + t
+                                tw_color : this.currentMenuField.indexOf('background') > -1  ? 'bg-' + color + t : 'text-' + color + t
                             }
                             
 

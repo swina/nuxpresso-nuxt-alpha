@@ -57,11 +57,16 @@ module.exports = {
         '20xl' : '6rem'
       },
       width : {
+        'auto'  : 'auto',
+        'half'  : '50%',
         'large' : '60%',
         'wide'  : '75%',
         'extrawide' : '85%'
       },
       colors: {
+          'black-normal' : '#000000',
+          'white-normal' : '#FFF',
+          'transparent-normal' : 'transparent',
           'gray-extralight'  : '#F7FAFC',
           'gray-verylight'   : '#EDF2F7',
           'gray-light'       : '#E2E8F0',
@@ -167,7 +172,8 @@ module.exports = {
   },
   variants: {
     borderColor : [ 'responsive' , 'hover' , 'focus' ],
-    backgroundColor: [ 'responsive' , 'hover' , 'focus' ]
+    backgroundColor: [ 'responsive' , 'hover' , 'focus' ],
+    visibility : [ 'responsive' , 'hover' ]
   },
   plugins: [],
   purge: {

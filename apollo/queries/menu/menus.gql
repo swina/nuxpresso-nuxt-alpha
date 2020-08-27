@@ -21,6 +21,18 @@ query Menus {
       css
       tw_color
     }
+    menu_background {
+      color
+      density
+      css
+      tw_color
+    }
+    menu_foreground {
+      color
+      density
+      css
+      tw_color
+    }
     background_color {
       color
       density
@@ -35,6 +47,7 @@ query Menus {
     items {
         order
         name
+        css
         article {
             title
             slug

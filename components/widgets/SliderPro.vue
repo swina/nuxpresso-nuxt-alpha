@@ -7,7 +7,7 @@
       enter-active-class="animated slide-in-active"
       leave-active-class="animated slide-out-active">
         <div :key="'slide_' + i" v-for="(slide,i) in $attrs.slides" :class="'relative w-full flex items-center bg-center bg-no-repeat bg-cover nuxpresso-slider h-full ' + currentBackground" :style="'min-height:' + height + ' ' + bgSlide(slide)" v-if="currentIndex === i">
-            <div :class="'centered w-auto absolute ' + boxCss(slide)">
+            <div :class="'centered absolute w-' + slide.box_width + ' ' + boxCss(slide)">
                 <div :class="'w-full flex flex-col-reverse md:flex-row flex-shrink flex-wrap ' + justify(slide)">
                     <div>
                         <h2 :class="classeOverlay(slide,'title') + ' ' +  sliderClass('title',i)" v-html="slide.title"></h2>
@@ -16,7 +16,7 @@
                         <div class="mt-4" v-if="slide.button">
                             <nuxt-link
                                 :to="slide.button_link">
-                            <button :class="sliderClass('button',i) + btn_classe">{{slide.button}}</button>
+                            <button :class="sliderClass('button',i) + btn_classe + ' '">{{slide.button}}</button>
                             </nuxt-link>
                         </div>
                     </div>
@@ -27,21 +27,24 @@
                     
                 </div>
             </div>
-
+            
         </div>
     </transition-group>
-    <div style="top:50%;transform:translateY(-50%)" class="p-0 md:p-2 absolute">
-            <i class="material-icons text-3xl md:text-5xl text-white cursor-pointer bg-gray-400 rounded-full hover:bg-black hover:text-white" @click="prev">
-                <span  v-if="$attrs.slider.navigator_icon">{{$attrs.slider.navigator_icon.split(',')[0]}}</span>
-                <span v-else>chevron_left</span>
-                </i>
-        </div>
-        <div style="top:50%;right:0;transform:translateY(-50%)" class="p-0 md:p-2 absolute">
-            <i class="material-icons text-3xl md:text-5xl text-white cursor-pointer bg-gray-400 rounded-full hover:bg-black hover:text-white" @click="next">
-                <span v-if="$attrs.slider.navigator_icon">{{$attrs.slider.navigator_icon.split(',')[1]}}</span>
-                <span v-else>chevron_right</span>
-            </i>
-        </div>
+    <div class="mb-8 absolute left-0 bottom-0 w-full m-auto flex flex-row justify-center">
+        <div v-for="i in $attrs.slides.length" :class="'nuxpresso-slider-dots ' + dotBG(i-1)" @click="goto(i-1)" :title="$attrs.slides[i-1].title"></div>
+    </div>
+    <div style="top:50%;transform:translateY(-50%)" class="z-50 cursor-pointer p-0 md:p-2 absolute md:opacity-0 hover:opacity-100">
+        <i class="material-icons text-3xl md:text-5xl text-white cursor-pointer bg-gray-400 rounded-full hover:bg-black hover:text-white" @click="prev">
+            <span  v-if="$attrs.slider.navigator_icon">{{$attrs.slider.navigator_icon.split(',')[0]}}</span>
+            <span v-else>chevron_left</span>
+        </i>
+    </div>
+    <div style="top:50%;right:0;transform:translateY(-50%)" class="p-0 md:p-2 absolute md:opacity-0 hover:opacity-100">
+        <i class="material-icons text-3xl md:text-5xl text-white cursor-pointer bg-gray-400 rounded-full hover:bg-black hover:text-white" @click="next">
+            <span v-if="$attrs.slider.navigator_icon">{{$attrs.slider.navigator_icon.split(',')[1]}}</span>
+            <span v-else>chevron_right</span>
+        </i>
+    </div>
     <!--
     <div v-if="$attrs.slides && slide && height" id="nxslider" :class="'h-screen relative md:h-auto w-full flex items-center bg-center bg-no-repeat bg-cover slide-in nuxpresso-slider ani ' + currentBackground" :style="'min-height:' + height +  currentImg">
         <transition name="slideright">
@@ -171,6 +174,9 @@ export default {
             this.currentIndex = n
             this.index = n
             this.slide = this.$attrs.slides[n]
+        },
+        dotBG(i){
+            return i === this.currentIndex ? 'nuxpresso-slider-dot-active animate-ping' : ''
         }
     },
     destroyed(){
@@ -192,6 +198,7 @@ export default {
             classe += ' ' + this.theme.buttons_bg.css +  ' ' + this.theme.buttons_fg.css
             return classe
         },
+        
         
     }
 };
@@ -243,4 +250,35 @@ export default {
         transform: translate(-50%,-50%);
     }
 }
+
+.animate-ping {
+    animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes ping {
+  0% {
+    transform: scale(1);
+    background:rgb(0, 0, 0);
+    opacity: 1;
+  }
+  75%, 100% {
+    transform: scale(1.5);
+    background:rgb(0, 0, 0);
+    opacity: 0;
+  }
+}
+
+.animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+    @keyframes pulse {
+        0%, 100% {
+            opacity: 1;
+            background:rgb(7, 7, 7);
+        }
+        50% {
+            opacity: .5;
+            background:rgb(255, 255, 255);
+        }
+    }
 </style>

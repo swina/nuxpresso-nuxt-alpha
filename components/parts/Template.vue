@@ -2,7 +2,7 @@
     <div :style="offset">
         <article v-if="article && article.template">
             <Breadcrumb class="text-xs p-2 relative" v-if="settings.breadcrumb && article.template.breadcrumb"/>
-            <div  :class="article.template.class + ' flex flex-col md:flex-row pb-16 nuxpresso-template-' + $slugify(article.template.name)">
+            <div id="template" :class="article.template.class + ' flex flex-col md:flex-row pb-16 nuxpresso-template-' + $slugify(article.template.name)">
                 <div :key="'template_col_' + i" v-for="(col,i) in columns" v-if="article.template[col] && article.template[col].length" :class="'w-full ' + article.template['col_' + (i+1) + '_class']">
                     <template v-for="(field,i) in article.template[col]">
 
@@ -24,10 +24,17 @@
                         <div :key="'field_author_' + i" v-if="field.name==='author' && $attrs.article.user" :class="field.class">
                             {{ $attrs.article.user.firstname }} {{ $attrs.article.user.lastname }}
                         </div>
-                        <!--<div :key="'field_widget_' + i" v-if="field.widget" :class="field.class">-->
-                            <nuxpresso-widget v-if="field.widget" :class="field.class" :nuxwidget="field.widget.id" :id="field.widget.id"/>
-                        <!--</div>-->
 
+
+                        <nuxpresso-widget 
+                            :key="'field_widget_' + i" 
+                            v-if="field.widget" 
+                            :widget="$widget(widgets,field.widget.id)" 
+                            :timer="$hasTimer($widget(widgets,field.widget.id).class)"
+                            :class="field.class" 
+                            :nuxwidget="field.widget.id" 
+                            :id="field.widget.id"/>
+                        
                         <NuxpressoMenu 
                             :key="'field_menu_' + i"
                             :class="'nupresso-menu-' + $slugify(field.menu.name)"
@@ -64,6 +71,7 @@
                 </div>
             </div>
         </article>
+        
     </div>
 </template>
 
@@ -74,19 +82,26 @@ import NuxpressoImage from '@/components/widgets/Image'
 import NuxpressoArticle from '@/components/widgets/Article'
 import NuxpressoMenu from '@/components/widgets/MenuResponsive'
 import NuxpressoTags from '@/components/widgets/Tags'
+import NuxpressoNotfound from '@/components/widgets/404'
 
 import { mapState } from 'vuex'
 export default {
     name: 'NuxpPageTemplate',
     components: {
-        Breadcrumb , NuxpressoWidget , NuxpressoImage, NuxpressoArticle , NuxpressoMenu , NuxpressoTags
+        Breadcrumb , NuxpressoWidget , NuxpressoImage, NuxpressoArticle , NuxpressoMenu , NuxpressoTags, NuxpressoNotfound
     },
     data:()=>({
         content: null,
-        contentWidgets: false
+        contentWidgets: false,
+        notFound: false
     }),
+    watch:{
+        article(v){
+            !v ? this.notFound = true : this.notFound = false
+        }
+    },
     computed:{
-        ...mapState ( ['theme','templates','settings']),
+        ...mapState ( ['theme','templates','settings','widgets']),
         article(){
             if ( this.$attrs.article ){
                 let article = this.$attrs.article
@@ -129,7 +144,24 @@ export default {
         
     },
     methods:{
-        
+        getWidget(id){
+            return id ? this.widgets.filter ( w => { return w.id === parseInt(id) })[0] : null
+        },
+        hasTimer(id){
+            let widget = id ? this.widgets.filter ( w => { return w.id === parseInt(id) })[0] : null
+            if ( widget && widget.class && widget.class.indexOf('nuxpresso-timer') > -1 ){
+                let a = widget.class.split(' ')
+                let timer = false
+                a.forEach ( c => {
+                    if ( c.indexOf ( 'nuxpresso-timer') > -1 ){
+                        console.log ( c )
+                        timer = c.split('-').length > 2 ? c.split('-')[2] : 1000
+                    }
+                })
+                return timer
+            }
+            return false
+        },
         classe(type,element){
             let cl = this.theme[element] ? this.$colorClass(type,this.theme[element].color , this.theme[element].density ) : ''
             return cl

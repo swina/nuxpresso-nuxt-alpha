@@ -59,6 +59,13 @@ export default {
         prev(){
             this.start = this.start - this.limit
         }
+    },
+    mounted(){
+        if ( window.localStorage.getItem('nuxpresso-jwt') ){
+            this.$axios.defaults.headers.common = {
+                    'Authorization': window.localStorage.getItem('nuxpresso-jwt')
+            }   
+        }
     }
 }
 </script>

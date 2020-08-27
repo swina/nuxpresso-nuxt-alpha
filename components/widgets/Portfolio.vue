@@ -48,7 +48,7 @@ export default {
             return this.$attrs.portfolio.factor ?
                     this.$attrs.portfolio.factor === 'square' ? '4-4' :
                         this.$attrs.portfolio.factor === 'wide' ? '4-3' :
-                            this.$attrs.portfolio.factor === 'extra-wide' ? '16-9' : '' : ''
+                            this.$attrs.portfolio.factor === 'extrawide' ? '16-9' : '' : ''
         },
 
     },

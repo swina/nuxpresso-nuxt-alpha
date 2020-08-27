@@ -1,7 +1,9 @@
 import dotenv from 'dotenv'
 import path from 'path'
 dotenv.config()
+console.log (  'connected to => ' , process.env.API_URL )
 export default {
+  
   mode: "universal",
   target: 'static',
   /*
@@ -26,11 +28,12 @@ export default {
         content: process.env.npm_package_description || ""
       }
     ],
-    script : [
+    /*script : [
       {
         src: 'https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js'
       }
     ],
+    */
     link: [
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
       {

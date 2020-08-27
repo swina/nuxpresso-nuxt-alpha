@@ -7,7 +7,7 @@ query Articles ( $slug : String){
     homepage
     random_image
     tags
-
+    lang
     user {
       firstname
       lastname

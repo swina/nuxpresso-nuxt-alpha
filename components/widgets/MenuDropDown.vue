@@ -29,14 +29,23 @@ export default {
     computed: {
         ...mapState ( ['theme'] ),
         classe(){
-            //return ''
+            //let classe
+            //if ( this.$attrs.dropdown.menu ){
+            //    console.log ( this.$attrs.dropdown.menu.menu_background )
+            //    classe = this.$attrs.dropdown.menu.menu_background ?
+            //        'bg-' + this.$attrs.dropdown.menu.menu_background.color + '-' + this.$attrs.dropdownn.menu.menu_background.density + ' ' : ''
+            //    classe += this.$attrs.dropdown.menu.css || ''
+            //}
+            let _classe = this.$attrs.dropdown.menu.menu_background ?
+                this.$attrs.dropdown.menu.menu_background.tw_color + ' ' + this.$attrs.dropdown.menu.menu_background.css + ' ' + this.$attrs.dropdown.menu.css : ''
+
             let classe = this.$attrs.dropdown.menu.background ?
                 this.$attrs.dropdown.menu.background.tw_color + ' ' + this.$attrs.dropdown.menu.background.css + ' ' + this.$attrs.dropdown.menu.css : ''
 
             //let classe = this.$attrs.dropdown.menu.background_color ? 
             //    this.$colorClass ( 'bg' , this.$attrs.dropdown.menu.background_color.color , this.$attrs.dropdown.menu.background_color.density ) + ' ' + this.$attrs.dropdown.menu.background_color.css : ''
-            if ( classe ){
-                return classe
+            if ( _classe ){
+                return _classe
             } else {        
                 return 'bg-white text-black p-1'
             }

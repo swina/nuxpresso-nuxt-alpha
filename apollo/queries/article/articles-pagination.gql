@@ -6,6 +6,7 @@ query Articles ( $limit : Int, $start : Int ) {
     excerpt
     updated_at
     random_image
+    lang
     image {
       url
       caption

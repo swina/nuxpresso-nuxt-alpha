@@ -37,6 +37,23 @@
         }
     }
 
+    Vue.prototype.$widget = function ( widgets , id ){
+        return id ? widgets.filter ( w => { return w.id === parseInt(id) })[0] : null
+    }
+
+    Vue.prototype.$hasTimer = function ( classe ){
+        if ( !classe ) return false
+        let a = classe.split(' ')
+        let timer = false
+        a.forEach ( c => {
+            if ( c.indexOf ( 'nuxpresso-timer') > -1 ){
+                console.log ( c )
+                timer = c.split('-').length > 2 ? c.split('-')[2] : 1000
+            }
+        })
+        return timer
+    }
+
     Vue.prototype.$icons = function(){
         return icons.split(',')
     }
@@ -76,6 +93,16 @@
         return theme[element] ? colorTones ( element.split('_')[1] , theme[element].color , theme[element].density ) : ''
     }
 
+    
+    Vue.prototype.$nuxpColor = function ( pref = 'bg' , color , tone ){
+        if ( color != 'transparent' && color != 'black' && color != 'white' ) {
+            return pref + '-' + color + tone ? '-' + tone : ''
+        } else {
+            return pref + '-' + color
+        }
+    }
+
+    
 
     Vue.prototype.$menuLink = function ( item ){
         if ( !item ) return null

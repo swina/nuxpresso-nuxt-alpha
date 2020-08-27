@@ -1,5 +1,5 @@
 <template>
-<div class="fixed top-0 bg-gray-700 text-white p-4 w-1/3 z-50 cursor-pointer" style="margin-left:25%">
+<div class="fixed top-0 bg-gray-700 text-white p-4 w-1/2 lg:w-1/3 z-50 cursor-pointer" style="margin-left:25%">
     
         <div class="flex flex-row justify-start">
             <div>

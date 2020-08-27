@@ -7,6 +7,9 @@
             :class="itemClass + ' mx-2'">
             <span @mouseover="over($event,$attrs.item)">{{ $attrs.item.name  }}</span>
         </nuxt-link>
+        <a v-if="$attrs.item.link_url" :href="$attrs.item.link_url" :class="itemClass" target="_blank">
+            <span @mouseover="over($event,$attrs.item)" :class="$attrs.item.css" v-html="$attrs.item.name"></span>
+        </a>
     </span>
 </template>
 

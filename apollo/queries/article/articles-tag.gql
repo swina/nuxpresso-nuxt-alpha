@@ -3,6 +3,7 @@ query Articles ( $tag: String ) {
     title
     slug
     tags
+    lang
     excerpt
     image {
       url

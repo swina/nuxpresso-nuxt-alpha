@@ -5,6 +5,7 @@ query Articles($id: ID!) {
     excerpt
     content
     slug
+    lang
     image {
       url
       caption

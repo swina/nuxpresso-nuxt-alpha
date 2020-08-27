@@ -4,6 +4,7 @@ query Articles {
     content
     excerpt
     homepage
+    lang
     image {
       url
     }
