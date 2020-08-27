@@ -1,8 +1,27 @@
 # nuxpresso-nuxt (alpha 0.0.1)
 
+
+## Demo
+
+https://nuxpresso.netlify.app
+
+
+**Requirements**
+
+nuxpresso-server (Strapi CMS)
+
+https://github.com/swina/nuxpresso-server-test
+
+
+
 ## Install nuxpresso-nuxt
 
+
+
 nuxpresso-nuxt is developed with NUXTJS. If you plan to use another frontend and develop your website using nuxpresso-server read our documentation.
+
+
+
 
 Clone the repository
 ```
