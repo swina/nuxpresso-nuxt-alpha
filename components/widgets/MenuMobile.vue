@@ -19,7 +19,6 @@
                     :class="classe">
                 {{ item.name }}
                 </nuxt-link>
-                <transition name="fade">
                     <div v-if="dropdown && item.submenu && item.submenu.id === dropdown.id" :class="'w-full p-2 flex flex-col ' + dropdown.css + ' ' + dropdown.menu.background.tw_color + ' ' + dropdown.menu.foreground.tw_color" @click="$emit('close')">
                         <template v-for="(sitem,n) in dropdown.items">
                             <div :key="'smenulink_' + n" v-if="!sitem.article && !sitem.category && !sitem.link_url" :class="classe">
@@ -41,7 +40,6 @@
                             </nuxt-link>
                         </template>
                     </div>
-                </transition>
             </template>
         </div>
     </div>

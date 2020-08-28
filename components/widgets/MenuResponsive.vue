@@ -2,9 +2,9 @@
     <div>
         <!-- mobile (not lg) -->
         <i :class="'lg:hidden absolute top-0 right-0 mr-2 m-2 cursor-pointer material-icons border-transparent hover:border-transparent ' + classeMobile" v-if="menu.mobile" @click="mobile=!mobile">menu</i>
-        <transition name="fade">
+        <!--<transition name="fade">-->
             <MenuMobile :menu="menu" v-if="mobile" @close="mobile=!mobile"/>
-        </transition>
+        <!--</transition>-->
 
         <!-- lg screen -->
         <div :class="orientation">
