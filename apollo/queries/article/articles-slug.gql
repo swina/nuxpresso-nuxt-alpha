@@ -8,15 +8,12 @@ query Articles ( $slug : String){
     random_image
     tags
     lang
-    user {
-      firstname
-      lastname
-    }
     image { 
         name 
         url
         caption
         alternativeText
+        previewUrl
     }
     gallery {
         name
@@ -24,7 +21,6 @@ query Articles ( $slug : String){
         caption
         alternativeText
     }
-    image_title
     updated_at
     SEO {
         description
@@ -38,68 +34,9 @@ query Articles ( $slug : String){
       slug
       title
     }
-    template {
-      id
-      name
-      class
-      breadcrumb
-      fields {
-        name
-        class
-        shortcode 
-        textbox
-        widget {
-            id
-        }
-        menu {
-          id
-        }
-        image {
-          url
-          caption
-          alternativeText
-        }
-        random_image
-      }
-      col_1_class
-      fields_col_2 {
-        name
-        class
-        shortcode
-        textbox
-        widget {
-            id
-        }
-        menu {
-          id
-        }
-        image {
-          url
-          caption
-          alternativeText
-        }
-        random_image
-      }
-      col_2_class
-      fields_col_3 {
-        name
-        class
-        shortcode
-        textbox
-        widget {
-            id
-        }
-        menu {
-          id
-        }
-        image {
-          url
-          caption
-          alternativeText
-        }
-        random_image
-      }
-      col_3_class
+    component {
+      json
     }
+    
   } 
 }

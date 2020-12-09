@@ -1,11 +1,12 @@
 query Articles ( $limit : Int, $start : Int ) {
-  articles ( limit: $limit , start: $start , sort: "updated_at:desc" , where : { list_exclude: false } ){
-    title
+  articles ( limit: $limit , start: $start , sort: "updated_at:desc" , where : { list_exclude: false , homepage: false } ){
     slug
-    tags
+    title
     excerpt
-    updated_at
+    content
+    homepage
     random_image
+    tags
     lang
     image {
       url
@@ -17,9 +18,19 @@ query Articles ( $limit : Int, $start : Int ) {
       caption
       alternativeText
     }
-    user {
-      firstname
-      lastname
+    image_title
+    updated_at
+    SEO {
+        description
+        title
+    }
+    categories {
+        name
+        slug
+    }
+    parent {
+      slug
+      title
     }
   }
 }

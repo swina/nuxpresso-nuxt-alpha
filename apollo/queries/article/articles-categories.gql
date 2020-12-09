@@ -22,7 +22,6 @@ query Category($id: ID!){
         caption
         alternativeText
       }
-      image_title
       categories {
         id
         name
@@ -31,10 +30,6 @@ query Category($id: ID!){
         firstname
         lastname
         email
-      }
-      template {
-        id
-        name
       }
     }
   }

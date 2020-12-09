@@ -1,20 +1,14 @@
     import Vue from 'vue'
     import moment from 'moment'
-    import NuxpressoIcon from '@/components/widgets/Icon'
-    import NuxpressoWidget from '@/components/widgets/Widget'
-    import NuxpressoLogin from '@/components/widgets/Login'
-    //import NuxpressoDarkmode from '@/components/ui/DarkMode'
-
-    Vue.component ( 'NuxpressoIcon' , NuxpressoIcon )
-    Vue.component ( 'NuxpressoWidget' , NuxpressoWidget )
-    Vue.component ( 'NuxpressoLogin' , NuxpressoLogin )
-    //Vue.component ( 'NuxpressoDarkmode' , NuxpressoDarkmode )
+    import {SimpleSVG} from 'vue-simple-svg'
+    Vue.component('simple-svg', SimpleSVG)
+    /*
     const baseURL = 'https://js.api.here.com/v3/3.1/'
     const src = 'mapsjs.bundle.js' //'mapsjs-core.js','mapsjs-service.js','mapsjs-ui.js','mapsjs-mapevents.js']
     const styles = 'mapsjs-ui.css'
     import icons from './icons'
     Vue.use(icons)
-
+    */
 
     const tones = {
         extralight : 100 ,
@@ -35,6 +29,56 @@
         } else {
             return pref + '-' + color
         }
+    }
+
+    const pixels = [ 1 , 4 , 8 , 12 , 16 , 20 , 24 , 32 , 40 , 48, 64 , 80 , 96 , 128 , 160 , 192 , 224 , 256 ]
+    const pixelsAttrs = {
+        'p' : 'padding' ,
+        'pt' : 'paddingTop' ,
+        'pr' : 'paddingRight' ,
+        'pb' : 'paddingBottom' ,
+        'pl' : 'paddingLeft',
+        m : 'margin',
+        mt: 'marginTop',
+        mr: 'marginRight',
+        mb: 'marginBottom',
+        ml: 'marginLeft' 
+    }
+
+    const textSizes = [ '','text-xs' , 'text-sm' , 'text-base' , 'text-lg' , 'text-xl' , 'text-2xl' , 'text-3xl' , 'text-4xl' , 'text-5xl' , 'text-6xl' , 'text-7xl' , 'text-8xl' , 'text-9xl' , 'text-10xl' , 'text-20xl']
+
+
+    
+
+    Vue.prototype.$clean = function ( str = '' ){
+        return str.replace(/\s\s+/g, ' ')
+    }
+
+    Vue.prototype.$cleanImage = ( img ) => {
+        return {
+            id: img.id,
+            name: img.name,
+            url: img.url,
+            width: img.width,
+            height: img.height,
+            size: img.size,
+            ext: img.ext,
+            alternative_text: img.alternative_text,
+            caption: img.caption
+        }
+    }
+
+    Vue.prototype.$layer = (element)=>{
+            
+        let classe = ''
+        
+        if ( element.css.length ){
+            let cl = element.css.split(' ')
+            cl.forEach ( z => {
+                z.indexOf('z-') > -1 ? classe += z : null
+            })
+        }
+        return classe
     }
 
     Vue.prototype.$widget = function ( widgets , id ){

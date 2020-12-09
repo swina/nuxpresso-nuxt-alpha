@@ -11,12 +11,6 @@ query Settings {
     articles_limit
     articles_loop_mode
     read_more
-    current_theme {
-      id
-      theme {
-        id
-      }
-    }
     logo_img {
       url
       caption

@@ -1,6 +1,8 @@
 <template>
-    <transition name="fade">
+    <nuxpresso-moka-template v-if="articles && components" :doc="components.json" :article="articles"/>
+    <!--
     <section>
+        {{components}}
         <nuxpresso-loop v-if="articles" :articles="articles"/>
         <div class="m-auto w-full text-center">
             <i @click="prev" v-if="start > 0" class="material-icons mr-2 text-3xl cursor-pointer">chevron_left</i>
@@ -8,17 +10,21 @@
         </div>
     </section>
     </transition>
+    -->
 </template>
 
 <script>
 import articlesPaginationQueries from '@/apollo/queries/article/articles-pagination'
+import componentTemplateQuery from '@/apollo/queries/component/component.loop'
 import NuxpressoLoop from '@/components/widgets/Loop'
+import NuxpressoMokaTemplate from '@/components/mokastudio/moka.preview'
 import { mapState } from 'vuex'
 export default {
     name: 'NuxpArticles',
-    components: { NuxpressoLoop },
+    components: { NuxpressoLoop , NuxpressoMokaTemplate },
     data:()=>({
-        start: 0
+        start: 0,
+        limit: 10
     }),
     computed:{
         ...mapState ( ['settings'] )
@@ -34,6 +40,16 @@ export default {
                 }
             },
             update: data => data.articles 
+        },
+        components: {
+            prefetch: true,
+            query: componentTemplateQuery,
+            variables(){
+                return {
+                    loop: 'articles'
+                }
+            },
+            update: data => data.components[0]
         }        
     },
     methods:{

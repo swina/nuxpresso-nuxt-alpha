@@ -1,24 +1,32 @@
 query Articles ($slug:String) {
-  articles ( where: { categories : { slug:$slug } } ) {
-    id
+  articles ( where: { categories : { slug:$slug } , homepage: false } ) {
     slug
     title
     excerpt
     content
+    homepage
+    random_image
     tags
-      categories {
-        name
-      }
-    parent {
-      slug
-      title
-    }
+    lang
     image {
       url
+      caption
+      alternativeText
     }
-    user {
-      firstname
-      lastname
+    gallery {
+      url
+      caption
+      alternativeText
+    }
+    image_title
+    updated_at
+    SEO {
+        description
+        title
+    }
+    categories {
+        name
+        slug
     }
   }
 }

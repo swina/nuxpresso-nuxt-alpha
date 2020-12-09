@@ -4,11 +4,11 @@ query Articles {
     content
     excerpt
     homepage
-    lang
-    image {
-      url
+    component {
+      id
+      json
     }
-    image_title
+    lang
     parent {
       title
       slug
@@ -16,65 +16,6 @@ query Articles {
     SEO {
       title
       description
-    }
-    template {
-      id
-      name
-      class
-      fields {
-        name
-        class
-        shortcode 
-        textbox
-        widget {
-            id
-        }
-        menu {
-          id
-        }
-        image {
-          url
-          caption
-          alternativeText
-        }
-      }
-      col_1_class
-      fields_col_2 {
-        name
-        class
-        shortcode
-        textbox
-        widget {
-            id
-        }
-        menu {
-          id
-        }
-        image {
-          url
-          caption
-          alternativeText
-        }
-      }
-      col_2_class
-      fields_col_3 {
-        name
-        class
-        shortcode
-        textbox
-        widget {
-            id
-        }
-        menu {
-          id
-        }
-        image {
-          url
-          caption
-          alternativeText
-        }
-      }
-      col_3_class
     }
   }
 }

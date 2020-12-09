@@ -5,16 +5,8 @@ export default async function ( { store , from } ){
     if(isInitialPageLoad){
         await RSVP.all([
             store.dispatch ( 'loadSettings' ),
-            store.dispatch ( 'loadMenus' ),
-            store.dispatch ( 'loadTemplates' ),
-            store.dispatch ( 'loadHomepage' ),
-            store.dispatch ( 'loadCategories' ),
-            //store.dispatch ( 'loadWidgets' ),
-            /*
-            store.dispatch ( 'loadLayout' ),
-            store.dispatch ( 'loadIcons' ),
-            store.dispatch ( 'loadThemes' )
-            */
+            store.dispatch ( 'loadHomepage' ), 
+            store.dispatch ( 'loadCategories' )
         ])
     }
 }

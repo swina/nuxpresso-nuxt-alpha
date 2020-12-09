@@ -1,0 +1,15 @@
+query Components($loop:String) {
+	components( where : {loop_type:$loop , loop: true}){
+    	id
+        name
+        description
+        category
+        image {
+            url
+        }
+    	json
+        updated_at
+    	loop
+    	loop_type
+  }
+}

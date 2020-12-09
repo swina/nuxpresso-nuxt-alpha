@@ -13,6 +13,7 @@ export default {
     components: { NuxpressoMokaTemplate },
     computed: {
         ...mapState ( ['settings','theme','categories'] ),
+        
     },
     head(){
         if ( this.articles && this.articles.length && this.articles[0].categories[0].SEO ){

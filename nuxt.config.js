@@ -10,7 +10,7 @@ export default {
    ** Headers of the page
    */
   env: {
-    strapiBaseUri: process.env.API_URL || "http://localhost:1337",
+    strapiBaseUri: process.env.API_URL || "http://localhost:1338",
     VUE_APP_HERE_APIKEY: process.env.VUE_APP_HERE_APIKEY,
     DEV_USER: process.env.NUXPRESSO_DEV_USER,
     DEV_PWD: process.env.NUXPRESSO_DEV_PASSWORD,
@@ -60,7 +60,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ["~/plugins/utils.js" ],//"~/plugins/axios.js"
+  plugins: ["~/plugins/utils.js" , "~/plugins/moka.js" , { src: "~/plugins/animations.js" , ssr: false }],//"~/plugins/axios.js"
   /*
    ** Nuxt.js dev-modules
    */
@@ -103,7 +103,7 @@ export default {
     }
   },
   axios: {
-    baseUrl: process.env.API_URL + '/'
+    baseUrl: process.env.API_URL 
   },
   /*
    ** Build configuration
@@ -115,6 +115,9 @@ export default {
     srcDir: 'src',
     buildDir: 'dist',
     extend(config, ctx) {},
+    transpile: [
+      "gsap"
+    ],
     babel: {
       presets({ isServer }) {
         return [
