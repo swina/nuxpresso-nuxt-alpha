@@ -1,5 +1,5 @@
 <template>
-    <nuxpresso-moka-template v-if="articles && components" :doc="components.json" :article="articles"/>
+    <nuxpresso-moka-template v-if="articles && components" :doc="component.json" :article="articles"/>
     <!--
     <section>
         {{components}}
@@ -24,10 +24,25 @@ export default {
     components: { NuxpressoLoop , NuxpressoMokaTemplate },
     data:()=>({
         start: 0,
-        limit: 10
+        limit: 10,
+        component:null
     }),
     computed:{
-        ...mapState ( ['settings'] )
+        ...mapState ( ['settings'] ),
+    },
+    mounted(){
+        this.limit = this.settings.articles_limit
+    },
+    watch:{
+        components(comp){
+            this.component = comp.filter ( c => c.loop_type === this.$route.params.slug )[0]
+            if ( !this.component ){
+                this.component = comp[0]
+            }
+            if ( this.component.hasOwnProperty('loop_limit') && parseInt(this.component.loop_limit) ){
+                this.limit = parseInt(this.component.loop_limit)
+            }
+        }
     },
     apollo: {
         articles: {
@@ -35,7 +50,7 @@ export default {
             query: articlesPaginationQueries,
             variables(){
                 return {
-                    limit: parseInt(this.settings.articles_limit),
+                    limit: parseInt(this.limit),
                     start: parseInt(this.start)
                 }
             },
@@ -44,12 +59,7 @@ export default {
         components: {
             prefetch: true,
             query: componentTemplateQuery,
-            variables(){
-                return {
-                    loop: 'articles'
-                }
-            },
-            update: data => data.components[0]
+            update: data => data.components
         }        
     },
     methods:{

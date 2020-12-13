@@ -1,18 +1,23 @@
 <template>
     <div v-if="element" :ref="element.id" :id="el.hasOwnProperty('anchor') && el.anchor?el.anchor:el.id" :style="element.style" element @click="element.hasOwnProperty('action') ? $emit('click',element.action) : null"> 
          <nuxt-link :class="el.css" :to="'/articles/' + $attrs.article.slug">   
-
             <component :class="$cssResponsive(el.css)" :is="tag" v-html="el.content" v-if="(el.tag==='element' || el.type==='button')  && el.element !='img' && el.type != 'video' && el.type != 'audio' && !el.link" :style="stile"></component>
             <a v-if="el.link" :href="el.link">
                 <component :class="$cssResponsive(el.css)" :is="tag" v-html="el.content" v-if="(el.tag==='element' || el.type==='button')  && el.element !='img' && el.type != 'video' && el.type != 'audio'" :style="stile"></component>
             </a>
-            <component :style="stile" :class="$cssResponsive(el.css)" :is="tag" v-if="el.tag === 'article' && el.label!='image'" v-html="$attrs.article[el.label]"/>
-            <!--<component :class="$cssResponsive(el.css)" :is="tag" v-if="el.tag === 'article'" v-html="el.content"/>-->
 
-            <svg v-if="el.tag === 'svg'" width="100%" height="100%" :viewBox="el.content.viewbox" v-html="el.content.g" :class="el.css + ' fill-current'"></svg>
- 
-            <!--<component :ref="element.id" :class="$cssResponsive(el.css)" :is="tag" v-if="el.type === 'video'" :src="el.src + el.content"/>-->
+            <component :style="stile" :class="$cssResponsive(el.css)" :is="tag" v-if="el.tag === 'article' && el.label!='image'" v-html="$attrs.article[el.label]"/>
             
+
+            <div :style="stile" :class="$cssResponsive(el.css)" :is="tag" v-if="el.tag === 'article' && el.label!='image' && el.label==='category' && $attrs.article.categories">
+                Categories: <span v-if="!$attrs.article.categories.length">NA</span>
+                <template v-for="cat in $attrs.article.categories">
+                    <span class="capitalize mr-2">{{ cat.name }}</span>
+                </template>
+            </div>
+
+            <svg v-if="el.tag === 'svg'" width="100%" height="100%" :viewBox="el.content.viewBox" v-html="el.content.g" :class="el.css + ' fill-current'"></svg>
+ 
             <img v-if="el.tag === 'article' && el.label==='image' && $attrs.article[el.label]" :src="$attrs.article[el.label].url" :class="el.css"/>
 
             <img v-if="el.element === 'img' && el.image && el.image.url && el.image.ext != '.svg' && el.image.ext != '.mp4'" :src="el.image.url" :caption="el.image.caption" :alt="el.image.alternative_text" :class="$cssResponsive(el.css)"/>

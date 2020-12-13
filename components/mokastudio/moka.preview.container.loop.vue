@@ -5,6 +5,7 @@
         :key="$randomID()" 
         :class="classe(doc.css) + ' flex-wrap'" :style="doc.style + ' ' +  background(doc)" :ref="doc.id">
         <template v-for="(block,b) in doc.blocks">
+            
             <template v-for="article in $attrs.articles">
                 
                 <moka-element
@@ -18,18 +19,32 @@
                     :key="$randomID()" 
                     :class="block.css.css + ' ' + block.css.container" 
                     :style="block.style" 
-                    v-if="block && !block.hasOwnProperty('slider') && block.hasOwnProperty('blocks') && !block.hasOwnProperty('menu')">
+                    v-if="block && block.type!='grid' && !block.hasOwnProperty('slider') && block.hasOwnProperty('blocks') && !block.hasOwnProperty('menu')">
+                    
                     <template v-for="element in block.blocks"> 
                         <moka-element
                             :loop="true"
                             :article="article"
-                            v-if="element && !element.hasOwnProperty('blocks') || element.hasOwnProperty('items')"
+                            v-if="$isMokaElement(element)"
                             :key="$randomID()"
                             :element="element"
                             />
+                        <div v-if="element.type==='flex'" 
+                            :key="$randomID()" 
+                            :class="element.css.css + ' ' + element.css.container" 
+                            :style="element.style">
+                            <template v-for="nested in element.blocks">
+                                <moka-element
+                                    :loop="true"
+                                    :article="article"
+                                    v-if="$isMokaElement(nested)"
+                                    :key="$randomID()"
+                                    :element="nested"
+                                />
+                            </template>
+                        </div>
                     </template>
                 </div>
-            
             </template>
         </template>
     </div>

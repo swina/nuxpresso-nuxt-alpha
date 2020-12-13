@@ -1,5 +1,5 @@
-query Components($loop:String) {
-	components( where : {loop_type:$loop , loop: true}){
+query Components {
+	components( where : {loop: true}){
     	id
         name
         description
@@ -11,5 +11,6 @@ query Components($loop:String) {
         updated_at
     	loop
     	loop_type
+        loop_limit
   }
 }
