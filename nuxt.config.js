@@ -12,9 +12,7 @@ export default {
   env: {
     strapiBaseUri: process.env.API_URL || "http://localhost:1338",
     VUE_APP_HERE_APIKEY: process.env.VUE_APP_HERE_APIKEY,
-    DEV_USER: process.env.NUXPRESSO_DEV_USER,
-    DEV_PWD: process.env.NUXPRESSO_DEV_PASSWORD,
-    VERSION: "1.0.0"
+    VERSION: "0.0.1"
   },
 
   head: {
@@ -98,7 +96,7 @@ export default {
   apollo: {
     clientConfigs: {
       default: {
-        httpEndpoint: (process.env.API_URL || "https://nuxpresso-server.herokuapp.com/") + "graphql"
+        httpEndpoint: (process.env.API_URL || "https://nuxpresso-strapi.herokuapp.com/") + "graphql"
       }
     }
   },
