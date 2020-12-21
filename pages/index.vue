@@ -28,24 +28,8 @@ export default {
     }
   },
   computed: {
-    ...mapState( ['homepage','homepage_template'] ),
-    /*template(){
-      this.$apolloProvider.defaultClient.query( 
-            { 
-              query : qryTemplate,
-              variables(){
-                  return {
-                      blocks_id : "moka-unjs5"
-                  }
-              }
-
-            } 
-      ).then ( result => {
-        console.log ( result )
-      })
-      return this.components.filter ( comp => {return comp.blocks_id === this.homepage.template_id })[0]
-    }
-  */
+    ...mapState( ['homepage'] ),
+   
   },
   apollo: {
     components: {

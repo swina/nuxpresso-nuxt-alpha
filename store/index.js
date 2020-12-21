@@ -73,21 +73,6 @@ export const actions = {
     },
     async loadHomepage ( { commit } ){
         const response = await this.app.apolloProvider.defaultClient.query( { query : homepageQuery } )
-        let template_id = response.data.articles[0].template_id
-        const template = await this.app.apolloProvider.defaultClient.query( 
-            { 
-                query : qryTemplate,
-                variables(){
-                    console.log ( template_id )
-                    return {
-                        blocks_id : template_id
-                    }
-                }
-
-            } 
-        )
-        //this.$axios.$get ( 'components?blocks_id=' + response.data.articles[0].template_id ).then ( resp => {
-        commit ( 'SET_HOMEPAGE_TEMPLATE' , template[0])
         let homepage = response.data.articles[0]
         commit ( 'SET_HOMEPAGE' , homepage )
     },
