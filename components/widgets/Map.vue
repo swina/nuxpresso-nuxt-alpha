@@ -1,15 +1,15 @@
 <template>
     <div>
-        <here-map 
+        <!--<here-map 
             :address="$attrs.address">
-        </here-map>
+        </here-map>-->
     </div>
 </template>
 
 <script>
-import HereMap from '@bit/swina.vue-components.global.vue-here-map/HereMaps.vue'
+//import HereMap from '@bit/swina.vue-components.global.vue-here-map/HereMaps.vue'
 export default {
     name: 'NuxpMap',
-    components: { HereMap }
+    //components: { HereMap }
 }
 </script>
