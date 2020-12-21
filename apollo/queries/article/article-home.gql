@@ -4,10 +4,8 @@ query Articles {
     content
     excerpt
     homepage
-    component {
-      id
-      json
-    }
+    template_id
+    
     lang
     parent {
       title

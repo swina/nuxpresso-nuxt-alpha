@@ -1,12 +1,13 @@
 <template>
   <div>
     <client-only>
-      <nuxpresso-moka-template v-if="homepage" :doc="homepage.component.json" :article="homepage"/>
+      <nuxpresso-moka-template v-if="homepage && components" :doc="components.json" :article="homepage"/>
     </client-only>
   </div>
 </template>
 
 <script>
+import qryTemplate from '@/apollo/queries/component/component.template'
 import NuxpressoMokaTemplate from '@/components/mokastudio/moka.preview'
 import { mapState } from 'vuex'
 export default {
@@ -27,8 +28,37 @@ export default {
     }
   },
   computed: {
-    ...mapState( ['homepage'] ),
+    ...mapState( ['homepage','homepage_template'] ),
+    /*template(){
+      this.$apolloProvider.defaultClient.query( 
+            { 
+              query : qryTemplate,
+              variables(){
+                  return {
+                      blocks_id : "moka-unjs5"
+                  }
+              }
+
+            } 
+      ).then ( result => {
+        console.log ( result )
+      })
+      return this.components.filter ( comp => {return comp.blocks_id === this.homepage.template_id })[0]
+    }
+  */
   },
+  apollo: {
+    components: {
+      query: qryTemplate,
+      variables(){
+        console.log ( this.homepage.template_id )
+        return {
+          blocks_id : this.homepage.template_id
+        }
+      },
+      update: data => data.components[0]
+    }
+  }
   
   
 }

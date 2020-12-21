@@ -27,7 +27,6 @@ module.exports = {
       display: ['Barlow Condensed','Abel','Alice','Amethysta', 'sans-serif']
     },
     extend: {
-        
         zIndex: {
           '0' : '-1',
           '1' : '1',
@@ -55,9 +54,11 @@ module.exports = {
           '106' : '106',
           '107' : '107',
           '108' : '108',
-          '109' : '109',
+          '109' : '109', 
           'max': '10000000',
-          'top': '999999999'
+          'top': '999999999',
+          'xtop' : '999999999999999999',
+          '2xtop' : '9999999999999999999'
         },
         lineHeight : {
           '11' : '2.75rem',
@@ -137,7 +138,7 @@ module.exports = {
       'nuxt.config.js'
     ],
     options: {
-      whitelistPatterns: [/^bg/,/^text/,/^border/,/^hover/,/^grid/,/^grid-cols-/,/^m/,/^p/,/^flex/,/^order/,/^md:/,/^lg:/,/^w/]
+      whitelistPatterns: [/^leading/,/^bg/,/^text/,/^border/,/^hover/,/^grid/,/^grid-cols-/,/^m/,/^p/,/^flex/,/^order/,/^md:/,/^lg:/,/^w/,/^h/,/^rounded/,/^content/,/^items/,/^object/,]
     }
   }
 }

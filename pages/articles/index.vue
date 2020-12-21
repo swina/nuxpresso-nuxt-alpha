@@ -1,5 +1,5 @@
 <template>
-    <nuxpresso-moka-template v-if="articles && components" :doc="component.json" :article="articles"/>
+    <nuxpresso-moka-template v-if="articles && component" :doc="component.json" :article="articles"/>
     <!--
     <section>
         {{components}}
@@ -16,12 +16,12 @@
 <script>
 import articlesPaginationQueries from '@/apollo/queries/article/articles-pagination'
 import componentTemplateQuery from '@/apollo/queries/component/component.loop'
-import NuxpressoLoop from '@/components/widgets/Loop'
+//import NuxpressoLoop from '@/components/widgets/Loop'
 import NuxpressoMokaTemplate from '@/components/mokastudio/moka.preview'
 import { mapState } from 'vuex'
 export default {
     name: 'NuxpArticles',
-    components: { NuxpressoLoop , NuxpressoMokaTemplate },
+    components: { NuxpressoMokaTemplate },
     data:()=>({
         start: 0,
         limit: 10,

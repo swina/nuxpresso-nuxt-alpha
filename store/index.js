@@ -1,6 +1,7 @@
 import categoriesQuery from '~/apollo/queries/category/categories'
 import settingsQuery from '~/apollo/queries/setting/settings'  
 import homepageQuery from '~/apollo/queries/article/article-home'
+import qryTemplate from '@/apollo/queries/component/component.template'
 import defaultComponent from '~/apollo/queries/component/component.default'
 import componentsQuery from '~/apollo/queries/component/components'
 export const strict = false
@@ -9,6 +10,7 @@ export const state = () => ({
     categories: null,
     settings: null,
     homepage: null,
+    homepage_template: null,
     article: null,
     current_article: null,
     header_offset: 0,
@@ -26,6 +28,9 @@ export const mutations = {
     },
     SET_HOMEPAGE ( state , homepage ){
         state.homepage = homepage
+    },
+    SET_HOMEPAGE_TEMPLATE ( state , template ){
+        state.homepage_template = template
     },
     SET_ARTICLE ( state , article ){
         state.current_article = article
@@ -68,7 +73,23 @@ export const actions = {
     },
     async loadHomepage ( { commit } ){
         const response = await this.app.apolloProvider.defaultClient.query( { query : homepageQuery } )
-        commit ( 'SET_HOMEPAGE' , response.data.articles[0] )
+        let template_id = response.data.articles[0].template_id
+        const template = await this.app.apolloProvider.defaultClient.query( 
+            { 
+                query : qryTemplate,
+                variables(){
+                    console.log ( template_id )
+                    return {
+                        blocks_id : template_id
+                    }
+                }
+
+            } 
+        )
+        //this.$axios.$get ( 'components?blocks_id=' + response.data.articles[0].template_id ).then ( resp => {
+        commit ( 'SET_HOMEPAGE_TEMPLATE' , template[0])
+        let homepage = response.data.articles[0]
+        commit ( 'SET_HOMEPAGE' , homepage )
     },
     async changeSettings ( { commit } , settings ){
         commit ( 'SET_SETTINGS' , settings )
