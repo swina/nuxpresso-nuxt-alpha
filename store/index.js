@@ -16,7 +16,8 @@ export const state = () => ({
     header_offset: 0,
     components: null,
     default_component: null,
-    media: null
+    media: null,
+    loop_action: null
 })
 
 export const mutations = {
@@ -48,6 +49,9 @@ export const mutations = {
     SET_DEFAULT_COMPONENT ( state , component ){
         state.default_component = component
     },
+    SET_LOOP_ACTION ( state , action ){
+        state.loop_action = action
+    }
 }
 
 export const actions = {
@@ -94,6 +98,9 @@ export const actions = {
     },
     header_offset ( { commit } , offset ){
         commit ( 'SET_HEADER_OFFSET' , offset )
-    } 
+    },
+    set_loop_action ( { commit } , action ){
+        commit ( 'SET_LOOP_ACTION' , action )
+    }
 }
 

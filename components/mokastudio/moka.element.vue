@@ -61,18 +61,18 @@
                     </div>
                 </div>
             </nav>
-            <i :class="'material-icons moka-icons z-top fixed md:hidden top-0 left-0 m-1 ' + el.css.css" v-if="el.element === 'menu' && el.responsive" @click="menu_show=!menu_show">menu</i>
+            <i :class="'material-icons moka-icons z-top fixed text-2xl md:hidden top-0 left-0 m-1 ' + el.css.css" v-if="el.element === 'menu' && el.responsive" @click="menu_show=!menu_show">menu</i>
             <transition name="fade">
             <nav v-if="el.element === 'menu' && menu_show" class="absolute top-0 left-0 right-0 bottom-0 z-top h-screen flex flex-col p-1 my-2"> 
                 <div v-for="(item,i) in el.items" :class="el.css.css + ' cursor-pointer relative p-1'"> 
                     
-                    <nuxt-link :class="el.css.css" v-if="!item.submenu && !$attrs.develop && item.link && !item.link.includes('http')" :to="'/' + item.link">{{ item.label }} <i v-if="item.submenu" class="material-icons moka-icons">arrow_drop_down</i></nuxt-link>
+                    <nuxt-link :class="el.css.css" v-if="!item.submenu && !$attrs.develop && item.link && !item.link.includes('http')" :to="item.link">{{ item.label }} <i v-if="item.submenu" class="material-icons moka-icons">arrow_drop_down</i></nuxt-link>
                     
                     <div v-else @mouseover="menuover=i" :class="el.css.css" @click="menuover=i">{{item.label}} <i v-if="item.submenu && item.submenu.length" :class="el.css.css + ' material-icons moka-icons text-sm'">arrow_drop_down</i></div>
                     
                     <div v-if="item.submenu && item.submenu.length" :class="isOver(i) + ' ' + el.css.css + ' absolute w-48 z-top p-1 flex flex-col'" @mouseleave="menuover=-1"> 
                         <div v-for="sub in item.submenu">
-                            <nuxt-link :to="'/' + sub.link" :class="el.css.css">{{sub.label}}</nuxt-link>
+                            <nuxt-link :to="sub.link" :class="el.css.css">{{sub.label}}</nuxt-link>
                         </div>
                     </div>
                 </div>

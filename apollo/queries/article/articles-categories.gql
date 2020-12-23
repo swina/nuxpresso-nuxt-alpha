@@ -1,5 +1,5 @@
-query Category($id: ID!){
-  category(id: $id) {
+query Category($id: ID! , $limit: Int , $start: Int ){
+  category(id: $id , limit: $limit , start: $start , sort: "updated_at:desc"  ) {
     name
     articles {
       id
@@ -17,19 +17,9 @@ query Category($id: ID!){
         caption
         alternativeText
       }
-      gallery {
-        url
-        caption
-        alternativeText
-      }
       categories {
         id
         name
-      }
-      user {
-        firstname
-        lastname
-        email
       }
     }
   }

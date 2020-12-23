@@ -15,35 +15,35 @@ export default {
   components: {
     NuxpressoMokaTemplate
   },
+  data:()=>({
+    template:null
+  }),
   head(){
     //SEO
-    if ( this.homepage && this.homepage.SEO ){
         return {
             title: this.homepage.SEO.title || this.homepage.title,
             meta: [
                 // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-                { hid: 'description', name: 'description', content: this.homepage.SEO.description || this.settings.seo.description || '' }
+                { hid: this.homepage.SEO.title || this.settings.site_name, 
+                name: this.homepage.SEO.title , 
+                content: this.homepage.SEO.description || this.settings.site_titòe || '' }
             ]
         }
-    }
   },
   computed: {
     ...mapState( ['homepage'] ),
    
   },
-  apollo: {
-    components: {
-      query: qryTemplate,
-      variables(){
-        console.log ( this.homepage.template_id )
-        return {
-          blocks_id : this.homepage.template_id
-        }
-      },
-      update: data => data.components[0]
+  async asyncData({app}){
+    const data  = await app.apolloProvider.defaultClient.query({
+      query : qryTemplate,
+      variables: {
+        blocks_id : app.store.state.homepage.template_id 
+      }
+    })
+    return {
+      components : data.data.components[0]
     }
   }
-  
-  
 }
 </script>

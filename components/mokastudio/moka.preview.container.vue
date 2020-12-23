@@ -12,6 +12,7 @@
                 :article="$attrs.article"
                 v-if="$isMokaElement(block)"
                 :key="block.id"
+                :el="block"
                 :element="block"/> 
 
             <!-- grid / flex -->
@@ -27,7 +28,8 @@
                 :key="$randomID()"
                 :articles="$attrs.article"
                 v-if="block.loop"
-                :doc="block"/>
+                :doc="block"
+                :pagination="$attrs.pagination||false"/>
 
             <!-- form -->
             <moka-form
@@ -43,7 +45,8 @@
 </template>
 
 <script>
-import MokaElement from '@/components/mokastudio/moka.element'
+//import MokaElement from '@/components/mokastudio/moka.element'
+import MokaElement from '@/components/mokastudio/moka.element.component'
 import MokaSlider from '@/components/mokastudio/moka.slider'
 import MokaArticlesLoop from '@/components/mokastudio/moka.preview.container.loop'
 import MokaForm from '@/components/mokastudio/moka.preview.form'

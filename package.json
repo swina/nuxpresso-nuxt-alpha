@@ -14,7 +14,6 @@
     "generate": "nuxt build && nuxt export"
   },
   "dependencies": {
-    
     "@nuxtjs/apollo": "^4.0.1-rc.1",
     "@nuxtjs/axios": "^5.11.0",
     "@nuxtjs/markdownit": "^1.2.9",

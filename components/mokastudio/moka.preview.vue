@@ -1,7 +1,6 @@
 <template> 
     <div :ref="doc.id" :class="$classe(doc.css)" :style="$stile(doc) + ' ' + $background(doc)" id="content">
         <!-- 1st level - BLOCKS LOOP -->
-        
             <template v-for="(block,b) in doc.blocks">
                 <!-- video background -->
                 <div :key="$randomID()" videobg v-if="block.image && (block.image.ext==='.mp4' || block.image.ext==='webm')" :class="'absolute ' + block.css.css">  
@@ -17,6 +16,7 @@
                     :article="$attrs.article" 
                     :key="block.id" 
                     :doc="block"
+                    :pagination="$attrs.pagination||false"
                     />
                 
                 <!-- render slider -->

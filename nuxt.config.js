@@ -48,7 +48,12 @@ export default {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: "#fff" },
+  loadingIndicator: {
+    name: 'circle',
+    color: '#c3c3c3',
+    background: 'white',
+    continuous: true
+  },
   /*
    ** Global CSS
    */
@@ -58,7 +63,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ["~/plugins/utils.js" , "~/plugins/moka.js" , { src: "~/plugins/animations.js" , ssr: false }],//"~/plugins/axios.js"
+  plugins: ["~/plugins/utils.js" , "~/plugins/moka.js" , { src: "~/plugins/animations.js" , ssr: false } , { src: "~/plugins/gsap.js" , ssr: false }],//"~/plugins/axios.js"
   /*
    ** Nuxt.js dev-modules
    */

@@ -1,5 +1,5 @@
 query Articles ($slug:String) {
-  articles ( where: { categories : { slug:$slug } , homepage: false } ) {
+  articles ( where: { categories : { slug:$slug } , loop: true , homepage: false } ) {
     slug
     title
     excerpt

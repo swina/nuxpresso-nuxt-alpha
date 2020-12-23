@@ -47,6 +47,10 @@
                 </div>
             </template>
         </template>
+        <div class="w-ful p-2 cursor-pointer items-center justify-center flex flex-row">
+            <i class="material-icons mr-2 text-2xl" @click="$store.dispatch('set_loop_action' ,'prev')">chevron_left</i>
+            <i class="material-icons mr-2 text-2xl" @click="$store.dispatch('set_loop_action' ,'next')">chevron_right</i>
+        </div>
     </div>
 
 </template>

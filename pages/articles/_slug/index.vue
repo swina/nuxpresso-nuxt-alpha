@@ -1,23 +1,18 @@
 <template>
-    <!--<Single :article="articles" v-if="articles"/>-->
-    <!--<div>{{articles}}</div>-->
-    <!--<nuxpresso-template :article="articles"/>-->
     <nuxpresso-moka-template v-if="articles" :doc="template" :article="articles"/>
 </template>
 
 <script>
 import articleQuery from '@/apollo/queries/article/articles-slug'
-import Single from '@/components/widgets/Single'
-import NuxpressoTemplate from '@/components/parts/Template'
 import NuxpressoMokaTemplate from '@/components/mokastudio/moka.preview'
 import { mapState }  from 'vuex'
 export default {
     name: 'NuxpArticleSlug',
     components: {
-        Single,NuxpressoTemplate,NuxpressoMokaTemplate
+        NuxpressoMokaTemplate
     },
     data:()=>({
-        //template: null
+        articles: [],
     }),
     computed:{
         ...mapState ( ['settings','default_component'] ),
@@ -25,7 +20,7 @@ export default {
         template(){
             return this.articles.component ? 
                 this.articles.component.json : this.default_component.json
-        },   
+        },
           
     },
     head(){
@@ -42,14 +37,15 @@ export default {
         
         
     },
-    apollo: {
-        articles: {
-            prefetch: true,
-            query: articleQuery,
-            variables(){
-                return { slug : this.$route.params.slug }
-            },
-            update: data => data.articles[0]
+    async asyncData({app,route}){
+        const data  = await app.apolloProvider.defaultClient.query({
+            query : articleQuery,
+            variables: {
+                slug : route.params.slug 
+            }
+        })
+        return {
+            articles : data.data.articles[0]
         }
     }
 }

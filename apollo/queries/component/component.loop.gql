@@ -1,5 +1,5 @@
-query Components {
-	components( where : {loop: true}){
+query Components($loop_type:String) {
+	components( where : {loop: true,loop_type:$loop_type}){
     	id
         name
         description
