@@ -57,6 +57,9 @@ button {
     @apply bg-blue-600 text-white text-base px-2 py-1 border border-transparent rounded outline-none;
 }
 
+button:focus {
+  @apply outline-none;
+}
 button:hover {
     @apply bg-white text-black border-gray-300;
 }

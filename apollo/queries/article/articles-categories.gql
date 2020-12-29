@@ -1,5 +1,5 @@
 query Category($id: ID! , $limit: Int , $start: Int ){
-  category(id: $id , limit: $limit , start: $start , sort: "updated_at:desc"  ) {
+  category( id: $id , limit: $limit , start: $start , sort: "updated_at:desc"  ) {
     name
     articles {
       id

@@ -1,5 +1,5 @@
 <template>
-    <component :ref="el.id" :is="component" :style="el.style" :class="$cssResponsive(el.css)" :el="el"/> 
+    <component :ref="el.id" :is="component" :style="el.style" :class="css" :el="el" :child="child"/> 
 </template>
 
 <script>
@@ -13,6 +13,7 @@ import MokaInput from '@/components/mokastudio/elements/moka.input'
 import MokaTextarea from '@/components/mokastudio/elements/moka.textarea'
 import MokaSimpleSvg from '@/components/mokastudio/elements/moka.simple.svg'
 import MokaArticle from '@/components/mokastudio/elements/moka.article'
+import MokaLink from '@/components/mokastudio/elements/moka.link'
 export default {
     name: 'MokaRenderElement',
     components: {
@@ -23,34 +24,51 @@ export default {
         MokaInput,
         MokaTextarea,
         MokaSimpleSvg,
-        MokaArticle
+        MokaArticle,
+        MokaLink
     },
+    data:()=>({
+        css: '',
+        child: null
+    }),
     props: [ 'el' ],
     computed:{
         component(){
             let el = this.$attrs.element
+            !el.link ?
+                this.css = this.$cssResponsive(el.css) :
+                    this.css = ''
             if ( ( el.tag === 'element' || el.type === 'button' ) && el.element != 'img' && el.type != 'video' && el.type != 'audio' ) {
+                this.child = MokaText
+                return el.link ? MokaLink : MokaText
                 return MokaText
             }
             if ( el.tag === 'article' && el.type === 'element' ){
                 this.$attrs.element.content = this.$attrs.article[el.label]
+                this.child = MokaText
+                return el.link ? MokaLink : MokaText
                 return MokaText
             }
             if ( el.tag === 'article' && el.element === 'img' ){
                 this.$attrs.element.image = this.$attrs.article[el.label]
-                return MokaImg
+                this.child = MokaImg
+                return el.link ? MokaLink : MokaImg
             }
             if ( el.type === 'video' ) {
-                return MokaVideo
+                this.child = MokaVideo
+                return el.link ? MokaLink : MokaVideo
             }
             if ( el.type === 'svg' ){
-                return MokaSvg
+                this.child = MokaSvg
+                return el.link ? MokaLink : MokaSvg
             }
             if ( el.element === 'img' && el.image && el.image.url && el.image.ext != '.svg' && el.image.ext != '.mp4' ) {
-                return MokaImg
+                this.child = MokaImg
+                return el.link ? MokaLink : MokaImg
             }
             if ( el.tag === 'icon' ){
-                return MokaIcon
+                this.child = MokaIcon
+                return el.link ? MokaLink : MokaIcon
             }
             if ( el.element === 'menu' ){
                 return MokaMenu
@@ -62,7 +80,8 @@ export default {
                 return MokaTextarea
             }
             if ( (el.element === 'img')  && el.image && el.image.ext === '.svg' ) {
-                return MokaSimpleSvg
+                this.child = MokaSimpleSvg
+                return el.link ? MokaLink : MokaSimpleSvg 
             }
         }
     },
