@@ -8,8 +8,8 @@ query Settings {
     autoimage
     authentication
     scrolltop
-    articles_limit
-    articles_loop_mode
+    seo_title
+    seo_description
     read_more
     logo_img {
       url
@@ -20,63 +20,5 @@ query Settings {
     github
     twitter
     footer
-    darkmode_settings {
-      ...on ComponentThemesDarkMode {
-        primary_fg {
-          color
-          density
-          css
-          tw_color
-        }
-        main_bg {
-          color
-          density
-          css
-          tw_color
-        }
-        header_fg {
-          color
-          density
-          css
-          tw_color
-        }
-        header_bg {
-          color
-          density 
-          image {
-            url
-          }
-          css
-          tw_color
-        }
-        footer_fg {
-          color
-          density 
-          css
-          tw_color
-        }
-        footer_bg {
-          color
-          density 
-          image {
-            url
-          }
-          css
-          tw_color
-        }
-        link_fg {
-          color
-          density 
-          css
-          tw_color
-        }
-        menu_fg {
-          color
-          density 
-          css
-          tw_color
-        }
-      }
-    }
   }
 }

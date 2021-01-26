@@ -26,17 +26,11 @@ export default {
         content: process.env.npm_package_description || ""
       }
     ],
-    /*script : [
-      {
-        src: 'https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js'
-      }
-    ],
-    */
     link: [
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css?family=Barlow+Condensed"//Work+Sans"//Staatliches"
+        href: "https://fonts.googleapis.com/css?family="+process.env.FONT_FAMILIES//Work+Sans"//Staatliches"
       },
       { 
         rel: "stylesheet" ,
@@ -69,7 +63,8 @@ export default {
    */
   buildModules: [
     '@nuxtjs/tailwindcss',
-    '@nuxtjs/recaptcha'
+    '@nuxtjs/recaptcha',
+    '@nuxtjs/google-analytics'
   ],
   tailwindcss: {
       exposeConfig: true
@@ -90,7 +85,12 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ["@nuxtjs/apollo", "@nuxtjs/markdownit","@nuxtjs/tailwindcss","@nuxtjs/axios"],//"nuxt-material-design-icons-iconfont"],
+  modules: [
+    "@nuxtjs/apollo", 
+    "@nuxtjs/markdownit",
+    "@nuxtjs/tailwindcss",
+    "@nuxtjs/axios"
+  ],
   markdownit: {
     preset: "default",
     linkify: true,
@@ -108,9 +108,13 @@ export default {
   axios: {
     baseUrl: process.env.API_URL 
   },
+  googleAnalytics: {
+    id: process.env.GOOGLE_ANALYTICS || 'UA-XXX-X'
+  },
   /*
    ** Build configuration
    */
+ 
   build: {
     /*
      ** You can extend webpack config here
@@ -123,7 +127,7 @@ export default {
     ],
     babel: {
       presets({ isServer }) {
-        return [
+        return [  
           [
             require.resolve('@nuxt/babel-preset-app'),
             {

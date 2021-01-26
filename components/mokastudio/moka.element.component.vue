@@ -5,6 +5,8 @@
 <script>
 import MokaText from '@/components/mokastudio/elements/moka.text'
 import MokaVideo from '@/components/mokastudio/elements/moka.video'
+import MokaAudio from '@/components/mokastudio/elements/moka.audio'
+import MokaIframe from '@/components/mokastudio/elements/moka.iframe'
 import MokaSvg from '@/components/mokastudio/elements/moka.svg'
 import MokaImg from '@/components/mokastudio/elements/moka.img'
 import MokaIcon from '@/components/mokastudio/elements/moka.icon'
@@ -19,6 +21,8 @@ export default {
     components: {
         MokaText,
         MokaVideo,
+        MokaAudio,
+        MokaIframe,
         MokaSvg,
         MokaImg,
         MokaInput,
@@ -50,13 +54,22 @@ export default {
                 return MokaText
             }
             if ( el.tag === 'article' && el.element === 'img' ){
-                this.$attrs.element.image = this.$attrs.article[el.label]
+                this.$attrs.element.image = this.$attrs.article.featured_img//this.$attrs.article[el.label]
                 this.child = MokaImg
                 return el.link ? MokaLink : MokaImg
             }
             if ( el.type === 'video' ) {
-                this.child = MokaVideo
-                return el.link ? MokaLink : MokaVideo
+                if ( el.element != 'iframe' ){
+                    this.child = MokaVideo
+                    return el.link ? MokaLink : MokaVideo
+                } else {
+                    this.child = MokaIframe
+                    return MokaIframe
+                }
+            }
+            if ( el.type === 'audio' ) {
+                this.child = MokaAudio
+                return el.link ? MokaLink : MokaAudio
             }
             if ( el.type === 'svg' ){
                 this.child = MokaSvg

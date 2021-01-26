@@ -68,6 +68,8 @@
         }
     }
 
+    
+
     Vue.prototype.$layer = (element)=>{
             
         let classe = ''

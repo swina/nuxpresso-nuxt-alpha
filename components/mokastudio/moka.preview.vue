@@ -5,13 +5,13 @@
                 <!-- video background -->
                 <div :key="$randomID()" videobg v-if="block.image && (block.image.ext==='.mp4' || block.image.ext==='webm')" :class="'absolute ' + block.css.css">  
                     <video playsinline :poster="block.image.previewUrl" class="object-cover h-full w-full" autoplay loop>
-                        <source :src="block.image.url"/>
+                        <source :src="$imageURL(block.image)"/>
                     </video>
                 </div>
 
                 <!-- render page strutcture -->
                 <moka-container
-                    v-if="!block.loop"
+                    v-if="!block.loop && !block.hasOwnProperty('slider')"
                     :loop="doc.loop"
                     :article="$attrs.article" 
                     :key="block.id" 
@@ -29,7 +29,8 @@
 <script>
 //import MokaElement from '@/components/mokastudio/moka.element'
 import MokaContainer from '@/components/mokastudio/moka.preview.container'
-import MokaSlider from '@/components/mokastudio/moka.slider'
+//import MokaSlider from '@/components/mokastudio/moka.slider'
+import MokaSlider from '@/components/mokastudio/slider/moka.slider'
 //import MokaArticlesLoop from '@/components/mokastudio/moka.preview.articles.loop'
 //import MokaContainerLoop from '@/components/mokastudio/moka.preview.container.loop'
 

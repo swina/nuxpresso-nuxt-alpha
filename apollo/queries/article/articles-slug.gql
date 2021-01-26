@@ -22,10 +22,8 @@ query Articles ( $slug : String){
         alternativeText
     }
     updated_at
-    SEO {
-        description
-        title
-    }
+    seo_title
+    seo_description
     categories {
         name
         slug
@@ -34,9 +32,10 @@ query Articles ( $slug : String){
       slug
       title
     }
+    blocks
     component {
       json
     }
-    
+    featured_img
   } 
 }

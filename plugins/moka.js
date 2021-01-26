@@ -54,6 +54,18 @@ function cssResponsive ( classe ){
     return responsiveCss
 }
 
+function imageURL ( image ){
+    if ( !image ) return false
+    let url = ''
+        image.previewUrl ? 
+            image.previewUrl.includes('http') ? 
+                url = image.previewUrl : 
+                    url = process.env.VUE_APP_API_URL + image.previewUrl.replace('/','') :
+                        image.url.includes('http') ? url = image.url : 
+                            url = process.env.VUE_APP_API_URL + image.url.replace('/','') 
+    return url
+}
+
 
 Vue.prototype.$classe = ( css = '') => {
     if ( !css ) return 
@@ -62,11 +74,23 @@ Vue.prototype.$classe = ( css = '') => {
 
 Vue.prototype.$background = ( block ) => {
     if ( !block ) return
+
     return block.hasOwnProperty('image') ?
-        block.image && block.image.url ? 
+        imageURL(block.image) ? ' background-image:url(' + imageURL(block.image) + ');' : '' : ''
+        /*block.image && block.image.url ? 
             block.image.previewUrl ? 
                 ' background-image:url(' + block.image.previewUrl + ');' :
                     ' background-image:url(' + block.image.url + ');' : ''  : ''        
+        */
+}
+
+Vue.prototype.$imageURL = ( image ) => {
+    if ( !image ) return false
+    let url = ''
+    image.url.includes('http') ? url = image.url : 
+        url = process.env.API_URL + image.url.replace('/','') 
+    return url
+    
 }
 
 Vue.prototype.$stile = ( block )=> {

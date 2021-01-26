@@ -1,7 +1,9 @@
 <template>
   <div>
     <client-only>
-      <nuxpresso-moka-template v-if="homepage && components" :doc="components.json" :article="homepage"/>
+      <!--<nuxpresso-moka-template v-if="homepage && components" :doc="components.json" :article="homepage"/>-->
+      
+      <nuxpresso-moka-template v-if="homepage" :doc="homepage.blocks.json" :article="homepage"/>
     </client-only>
   </div>
 </template>
@@ -18,22 +20,26 @@ export default {
   data:()=>({
     template:null
   }),
+  
   head(){
-    //SEO
         return {
-            title: this.homepage.SEO.title || this.homepage.title,
+            title: this.homepage.seo_title ? this.homepage.seo_title : this.homepage.title,
             meta: [
                 // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-                { hid: this.homepage.SEO.title || this.settings.site_name, 
-                name: this.homepage.SEO.title , 
-                content: this.homepage.SEO.description || this.settings.site_titòe || '' }
+                { 
+                  hid: this.homepage.seo_title ? this.homepage.seo_title : this.settings.seo_title, 
+                  name: this.homepage.seo_title ? this.homepage.seo_title : this.homepage.title , 
+                  content: this.homepage.seo_description ? this.homepage.seo_description : this.settings.seo_description
+                }
             ]
         }
+        
+        
   },
   computed: {
     ...mapState( ['homepage'] ),
-   
   },
+  
   async asyncData({app}){
     const data  = await app.apolloProvider.defaultClient.query({
       query : qryTemplate,
@@ -45,5 +51,6 @@ export default {
       components : data.data.components[0]
     }
   }
+  
 }
 </script>

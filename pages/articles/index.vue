@@ -1,6 +1,5 @@
 <template>
     <nuxpresso-moka-template v-if="articles && component" :doc="component.json" :article="articles" :pagination="true"/>
-   
 </template>
 
 <script>
@@ -58,6 +57,7 @@ export default {
             }
         }).then ( resp => {
             this.component = resp.data.components[0]
+
             if ( this.component.hasOwnProperty('loop_limit') ){
                 this.limit = parseInt(this.component.loop_limit)
             }
@@ -75,7 +75,7 @@ export default {
         
     },
     mounted(){
-        this.$nuxt.$loading.start()
+        //this.$nuxt.$loading.start()
         this.$fetch()
     }
     

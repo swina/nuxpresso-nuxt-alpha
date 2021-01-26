@@ -37,7 +37,8 @@
                 :article="$attrs.article"
                 v-if="block.tag==='form'"
                 :doc="block"/>
-            
+            <!-- render slider -->
+            <moka-slider :key="block.id" v-if="block && block.hasOwnProperty('slider')" :develop="false" :embeded="true" :doc="block" :editor="false"/> 
             <!--<moka-articles-loop v-if="$attrs.loop" :blocks="block"/>-->
         </template>
     </component>
@@ -47,7 +48,7 @@
 <script>
 //import MokaElement from '@/components/mokastudio/moka.element'
 import MokaElement from '@/components/mokastudio/moka.element.component'
-import MokaSlider from '@/components/mokastudio/moka.slider'
+import MokaSlider from '@/components/mokastudio/slider/moka.slider'
 import MokaArticlesLoop from '@/components/mokastudio/moka.preview.container.loop'
 import MokaForm from '@/components/mokastudio/moka.preview.form'
 //import MokaArticlesLoop from '@/components/mokastudio/moka.preview.articles.loop'

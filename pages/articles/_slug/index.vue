@@ -1,5 +1,6 @@
 <template>
     <nuxpresso-moka-template v-if="articles" :doc="template" :article="articles"/>
+    <!--<div>{{articles}}</div>-->
 </template>
 
 <script>
@@ -18,18 +19,19 @@ export default {
         ...mapState ( ['settings','default_component'] ),
         
         template(){
-            return this.articles.component ? 
-                this.articles.component.json : this.default_component.json
+            return this.articles.blocks.json
+            //return this.articles.component ? 
+                //this.articles.component.json : this.default_component.json
         },
           
     },
     head(){
         if ( this.articles ){
             return {
-                title: this.articles.SEO.title ? this.articles.SEO.title : this.articles.title,
+                title: this.articles.seo_title ? this.articles.seo_title : this.articles.title,
                 meta: [
                     // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-                    { hid: 'description', name: 'description', content: this.articles.SEO.description ? this.articles.SEO.description : this.settings.seo.description || '' }
+                    { hid: 'description', name: 'description', content: this.articles.seo_description ? this.articles.seo_description : this.settings.seo_description || '' }
                 ]
             }
             

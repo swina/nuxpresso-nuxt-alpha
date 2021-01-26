@@ -5,15 +5,13 @@ query Articles {
     excerpt
     homepage
     template_id
-    
     lang
     parent {
       title
       slug
     }
-    SEO {
-      title
-      description
-    }
+    seo_title
+    seo_description
+    blocks
   }
 }
