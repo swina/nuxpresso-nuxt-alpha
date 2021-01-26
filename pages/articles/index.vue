@@ -58,7 +58,7 @@ export default {
         }).then ( resp => {
             this.component = resp.data.components[0]
 
-            if ( this.component.hasOwnProperty('loop_limit') ){
+            if ( this.component && this.component.hasOwnProperty('loop_limit') ){
                 this.limit = parseInt(this.component.loop_limit)
             }
             this.$apolloProvider.defaultClient.query({
@@ -69,7 +69,6 @@ export default {
             }
             }).then ( resp => {
                 this.articles = resp.data.articles
-                this.$nuxt.$loading.finish() 
             })
         })
         

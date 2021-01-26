@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[5],{282:function(t,n,e){"use strict";e.r(n);var c={name:"NuxpIcon"},l=e(3),component=Object(l.a)(c,(function(){var t=this.$createElement;return(this._self._c||t)("i",{staticClass:"material-icons"},[this._v(this._s(this.$attrs.icon))])}),[],!1,null,null,null);n.default=component.exports}}]);
