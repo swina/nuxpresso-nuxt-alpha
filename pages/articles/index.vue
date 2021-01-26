@@ -1,5 +1,11 @@
 <template>
     <nuxpresso-moka-template v-if="articles && component" :doc="component.json" :article="articles" :pagination="true"/>
+    <!--<div>
+        <client-only>
+        {{ articles }}
+        </client-only>
+    </div>
+    -->
 </template>
 
 <script>
@@ -49,6 +55,29 @@ export default {
             }
         }
     },
+    async asyncData({app,route}){
+        
+        const template = await app.apolloProvider.defaultClient.query({
+            query: componentTemplateQuery,
+            variables:{
+                loop_type : route.params.slug
+            }
+        })
+        const data  = await app.apolloProvider.defaultClient.query({
+            prefetch: true,
+            query : articlesPaginationQueries,
+            variables: {
+                start: 0,
+                limit: 10
+            }
+        })
+        console.log ( template )
+        return {
+            articles : data.data.articles,
+            component : template.data.components[0]
+        }
+    },
+    /*
     async fetch(){
         this.$apolloProvider.defaultClient.query({
             query: componentTemplateQuery,
@@ -77,6 +106,6 @@ export default {
         //this.$nuxt.$loading.start()
         this.$fetch()
     }
-    
+    */
 }
 </script>
