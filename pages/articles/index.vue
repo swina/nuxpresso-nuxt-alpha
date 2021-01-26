@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import articlesPaginationQueries from '@/apollo/queries/article/articles-pagination'
-import componentTemplateQuery from '@/apollo/queries/component/component.loop'
+import articlesPaginationQueries from '~/apollo/queries/article/articles-pagination'
+import componentTemplateQuery from '~/apollo/queries/component/component.loop'
 import NuxpressoMokaTemplate from '@/components/mokastudio/moka.preview'
 import { mapState } from 'vuex'
 export default {
@@ -18,7 +18,7 @@ export default {
     components: { NuxpressoMokaTemplate },
     data:()=>({
         start: 0,
-        limit: 2,
+        limit: 10,
         component:null,
         articles: null
     }),
@@ -55,28 +55,27 @@ export default {
             }
         }
     },
-    async asyncData({app,route}){
-        
-        const template = await app.apolloProvider.defaultClient.query({
+    apollo: {
+        component : {
             query: componentTemplateQuery,
-            variables:{
-                loop_type : route.params.slug
-            }
-        })
-        const data  = await app.apolloProvider.defaultClient.query({
-            prefetch: true,
-            query : articlesPaginationQueries,
-            variables: {
-                start: 0,
-                limit: 10
-            }
-        })
-        console.log ( template )
-        return {
-            articles : data.data.articles,
-            component : template.data.components[0]
+            variables(){
+                return {
+                    loop_type: this.$route.params.slug
+                }
+            },
+            update: data => data.components[0]
+        },
+        articles: {
+            query: articlesPaginationQueries,
+            variables(){
+                return {
+                    start: this.start,
+                    limit: this.limit
+                }
+            },
         }
-    },
+    }
+   
     /*
     async fetch(){
         this.$apolloProvider.defaultClient.query({

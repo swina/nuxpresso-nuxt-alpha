@@ -4,14 +4,13 @@ dotenv.config()
 console.log (  'connected to => ' , process.env.API_URL )
 export default {
   
-  mode: "universal",
   target: 'static',
   /*
    ** Headers of the page
    */
   env: {
     strapiBaseUri: process.env.API_URL || "http://localhost:1338",
-    VUE_APP_HERE_APIKEY: process.env.VUE_APP_HERE_APIKEY,
+    //VUE_APP_HERE_APIKEY: process.env.VUE_APP_HERE_APIKEY,
     VERSION: "0.0.1"
   },
 
@@ -101,7 +100,7 @@ export default {
   apollo: {
     clientConfigs: {
       default: {
-        httpEndpoint: (process.env.API_URL || "https://nuxpresso-strapi.herokuapp.com/") + "graphql"
+        httpEndpoint: (process.env.API_URL ) + "graphql"
       }
     }
   },
