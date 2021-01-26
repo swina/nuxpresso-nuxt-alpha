@@ -41,7 +41,7 @@ export default {
         
         
     },
-    /*
+    
     apollo:{
         articles :{
             query : articleQuery,
@@ -50,8 +50,8 @@ export default {
             },
             update : data => data.articles[0]
         }
-    },*/
-    
+    },
+    /*
     async asyncData({app,route}){
         const data  = await app.apolloProvider.defaultClient.query({
             query : articleQuery,
@@ -63,6 +63,6 @@ export default {
             articles : data.data.articles[0]
         }
     }
-    
+    */
 }
 </script>
