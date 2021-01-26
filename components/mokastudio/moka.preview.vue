@@ -58,9 +58,13 @@ export default {
         animations(){
             //get animations array ( ./plugins/animations.js )
             return gsapEffects
+        },
+        doc(){
+            return this.$attrs.template ?
+                        this.$attrs.template : this.$attrs.article.blocks.json
         }
     },
-    props: [ 'doc' ],
+    //props: [ 'doc' ],
     methods: {
         /*
         responsive(css){

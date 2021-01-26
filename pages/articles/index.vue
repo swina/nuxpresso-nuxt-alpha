@@ -1,5 +1,5 @@
 <template>
-    <nuxpresso-moka-template v-if="articles && component" :doc="component.json" :article="articles" :pagination="true"/>
+    <nuxpresso-moka-template v-if="articles && component" :template="component.json" :article="articles" :pagination="true"/>
     <!--<div>
         <client-only>
         {{ articles }}

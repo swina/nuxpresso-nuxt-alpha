@@ -1,6 +1,8 @@
 <template>
-    <nuxpresso-moka-template v-if="articles && articles.blocks" :doc="articles.blocks.json" :article="articles"/>
-    <!--<div>{{articles.blocks.json}}</div>-->
+
+    <nuxpresso-moka-template v-if="articles" :article="articles"/>
+</div>    
+    <!--<div v-if="articles && articles.blocks && articles.blocks.json">{{articles.blocks.json}}</div>-->
 </template>
 
 <script>
@@ -19,7 +21,7 @@ export default {
         ...mapState ( ['settings','default_component'] ),
         
         template(){
-            return //this.articles.blocks
+            return this.articles.blocks.json
             //return this.articles.component ? 
                 //this.articles.component.json : this.default_component.json
         },
@@ -39,6 +41,7 @@ export default {
         
         
     },
+    /*
     apollo:{
         articles :{
             query : articleQuery,
@@ -47,8 +50,8 @@ export default {
             },
             update : data => data.articles[0]
         }
-    },
-    /*
+    },*/
+    
     async asyncData({app,route}){
         const data  = await app.apolloProvider.defaultClient.query({
             query : articleQuery,
@@ -60,6 +63,6 @@ export default {
             articles : data.data.articles[0]
         }
     }
-    */
+    
 }
 </script>

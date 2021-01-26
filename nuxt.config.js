@@ -100,7 +100,8 @@ export default {
   apollo: {
     clientConfigs: {
       default: {
-        httpEndpoint: (process.env.API_URL ) + "graphql"
+        httpEndpoint: (process.env.API_URL ) + "graphql",
+        fetchPolicy: 'cache-and-network'
       }
     }
   },
