@@ -44,13 +44,13 @@ export default {
         action(v){
             if ( v === 'next' ){
                 this.start += this.limit
-                this.$fetch()
+                //this.$fetch()
                 this.$store.dispatch ( 'set_loop_action' , null )
             } 
             if ( v === 'prev'){
                 this.start -= this.limit
                 if ( this.start < 0 ) this.start = 0
-                this.$fetch()
+                //this.$fetch()
                 this.$store.dispatch ( 'set_loop_action' , null )
             }
         }
