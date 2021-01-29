@@ -11,7 +11,7 @@
 
                 <!-- render page strutcture -->
                 <moka-container
-                    v-if="!block.loop && !block.hasOwnProperty('slider')"
+                    v-if="!block.loop && !block.hasOwnProperty('slider') && block.tag!='form'"
                     :loop="doc.loop"
                     :article="$attrs.article" 
                     :key="block.id" 
@@ -19,6 +19,8 @@
                     :pagination="$attrs.pagination||false"
                     />
                 
+                
+
                 <!-- render slider -->
                 <moka-slider :key="block.id" v-if="block && block.hasOwnProperty('slider')" :develop="true" :embeded="true" :doc="block" :editor="true"/> 
                     
@@ -29,6 +31,7 @@
 <script>
 //import MokaElement from '@/components/mokastudio/moka.element'
 import MokaContainer from '@/components/mokastudio/moka.preview.container'
+import MokaForm from '@/components/mokastudio/moka.preview.form'
 //import MokaSlider from '@/components/mokastudio/moka.slider'
 import MokaSlider from '@/components/mokastudio/slider/moka.slider'
 //import MokaArticlesLoop from '@/components/mokastudio/moka.preview.articles.loop'
@@ -48,6 +51,7 @@ export default {
     components: { 
         MokaContainer,
         MokaSlider ,
+        MokaForm,
         /*
         MokaElement,
         MokaArticlesLoop,

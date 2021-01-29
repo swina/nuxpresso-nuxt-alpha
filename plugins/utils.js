@@ -2,6 +2,7 @@
     import moment from 'moment'
     import {SimpleSVG} from 'vue-simple-svg'
     Vue.component('simple-svg', SimpleSVG)
+
     /*
     const baseURL = 'https://js.api.here.com/v3/3.1/'
     const src = 'mapsjs.bundle.js' //'mapsjs-core.js','mapsjs-service.js','mapsjs-ui.js','mapsjs-mapevents.js']

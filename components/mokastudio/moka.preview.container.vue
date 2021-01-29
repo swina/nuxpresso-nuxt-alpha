@@ -4,13 +4,12 @@
         :id="doc.hasOwnProperty('anchor')? doc.anchor : doc.id"
         v-if="doc"  
         :class="$classe(doc.css)" :style="$stile(doc) + ' ' +  $background(doc)" :ref="doc.id">
-        
         <template v-for="(block,b) in doc.blocks">
 
             <!-- html element --> 
             <moka-element
                 :article="$attrs.article"
-                v-if="$isMokaElement(block)"
+                v-if="$isMokaElement(block) && block.tag!='form'"
                 :key="block.id"
                 :el="block"
                 :element="block"/> 
@@ -20,7 +19,7 @@
                 :key="$randomID()"
                 :loop="$attrs.loop"
                 :article="$attrs.article"
-                v-if="$isMokaContainer(block,doc)" 
+                v-if="$isMokaContainer(block,doc) && block.tag!='form'" 
                 :doc="block"/>
 
             <!-- articles loop template (grid) -->

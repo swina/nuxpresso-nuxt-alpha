@@ -1,5 +1,5 @@
 <template>
-    <component :ref="el.id" :is="component" :style="el.style" :class="css" :el="el" :child="child"/> 
+    <component :ref="el.id" :is="component" :style="el.style" :class="css" :el="el" :child="child" @changed="changedValue"/> 
 </template>
 
 <script>
@@ -86,10 +86,10 @@ export default {
             if ( el.element === 'menu' ){
                 return MokaMenu
             }
-            if ( el.tag === 'input' && el.type!='button' ){
+            if ( el.tag === 'input' && el.type!='button' && el.type != 'textarea' ){
                 return MokaInput
             } 
-            if ( el.element === 'textarea' ){
+            if ( el.type === 'textarea' ){
                 return MokaTextarea
             }
             if ( (el.element === 'img')  && el.image && el.image.ext === '.svg' ) {
@@ -98,6 +98,11 @@ export default {
             }
         }
     },
+    methods: {
+        changedValue(v,name){
+            this.$emit('change',v,name)
+        }
+    }
     
 }
 </script>
