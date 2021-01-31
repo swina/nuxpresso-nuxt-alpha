@@ -2,9 +2,16 @@ import dotenv from 'dotenv'
 import path from 'path'
 dotenv.config()
 console.log (  'connected to => ' , process.env.API_URL )
+import data from './static/routes.json'
+let dynamicRoutes = () => {
+ return new Promise(resolve => {
+   resolve(data.map(el => `articles/${el.slug}`))
+ })
+}
 export default {
   
   target: 'static',
+  ssr: true,
   /*
    ** Headers of the page
    */
@@ -101,7 +108,7 @@ export default {
     clientConfigs: {
       default: {
         httpEndpoint: (process.env.API_URL ) + "graphql",
-        fetchPolicy: 'cache-and-network'
+        fetchPolicy: 'cache'
       }
     }
   },
@@ -114,7 +121,9 @@ export default {
   /*
    ** Build configuration
    */
- 
+  generate: {
+    routes: dynamicRoutes
+  },
   build: {
     /*
      ** You can extend webpack config here
