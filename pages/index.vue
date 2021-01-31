@@ -10,6 +10,7 @@
 
 <script>
 import qryTemplate from '@/apollo/queries/component/component.template'
+import qryHome from '@/apollo/queries/article/article-home'
 import NuxpressoMokaTemplate from '@/components/mokastudio/moka.preview'
 import { mapState } from 'vuex'
 export default {
@@ -37,18 +38,15 @@ export default {
         
   },
   computed: {
-    ...mapState( ['homepage'] ),
+    //...mapState( ['homepage'] ),
   },
   
   async asyncData({app}){
     const data  = await app.apolloProvider.defaultClient.query({
-      query : qryTemplate,
-      variables: {
-        blocks_id : app.store.state.homepage.template_id 
-      }
+      query : qryHome,
     })
     return {
-      components : data.data.components[0]
+      homepage : data.data.articles[0]
     }
   }
   

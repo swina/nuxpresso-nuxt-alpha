@@ -106,7 +106,7 @@ export default {
             this.$emit('change',v,name)
         },
         linkComponent(url){
-            return url.includes('http') ?
+            return url.includes('http') || url.includes('#') ?
                 MokaUrl : MokaLink 
             
         },

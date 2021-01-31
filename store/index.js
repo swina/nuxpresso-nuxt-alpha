@@ -17,7 +17,8 @@ export const state = () => ({
     components: null,
     default_component: null,
     media: null,
-    loop_action: null
+    loop_action: null,
+    popup: false
 })
 
 export const mutations = {
@@ -51,6 +52,9 @@ export const mutations = {
     },
     SET_LOOP_ACTION ( state , action ){
         state.loop_action = action
+    },
+    SET_POPUP ( state , popup ){
+        state.popup = popup
     }
 }
 
@@ -101,6 +105,9 @@ export const actions = {
     },
     set_loop_action ( { commit } , action ){
         commit ( 'SET_LOOP_ACTION' , action )
+    },
+    popup( { commit } , popup ){
+        commit ( 'SET_POPUP' , popup)
     }
 }
 

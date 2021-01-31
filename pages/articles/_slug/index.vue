@@ -17,7 +17,7 @@ export default {
         template: null
     }),
     computed:{
-        ...mapState ( ['settings','default_component'] ),
+        //...mapState ( ['settings','default_component'] ),
         /*
         template(){
             return this.articles.blocks.json
@@ -40,6 +40,18 @@ export default {
         
         
     },
+    async asyncData({app,route}){
+        const data  = await app.apolloProvider.defaultClient.query({
+        query : articleQuery,
+        variables: {
+            slug : route.params.slug 
+        }
+        })
+        return {
+            articles : data.data.articles[0]
+        }
+    }
+  /*
     apollo:{
         articles :{
             query : articleQuery,

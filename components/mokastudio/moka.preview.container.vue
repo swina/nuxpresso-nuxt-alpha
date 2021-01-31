@@ -2,7 +2,8 @@
     <component
         :is="semantic"
         :id="doc.hasOwnProperty('anchor')? doc.anchor : doc.id"
-        v-if="doc"  
+        v-if="doc &&  modal " 
+        :modal="popup" 
         :class="$classe(doc.css)" :style="$stile(doc) + ' ' +  $background(doc)" :ref="doc.id">
         <template v-for="(block,b) in doc.blocks">
 
@@ -40,6 +41,7 @@
             <moka-slider :key="block.id" v-if="block && block.hasOwnProperty('slider')" :develop="false" :embeded="true" :doc="block" :editor="false"/> 
             <!--<moka-articles-loop v-if="$attrs.loop" :blocks="block"/>-->
         </template>
+        <i class="material-icons absolute top-0 right-0 m-1" v-if="doc.hasOwnProperty('popup') && doc.popup.close" @click="popupClose">close</i>
     </component>
 
 </template>
@@ -62,14 +64,37 @@ export default {
     name: 'MokaPreviewContainer',
     components: { MokaElement , MokaSlider , MokaArticlesLoop , MokaForm  },
     props: [ 'doc'  ],
+    data:()=>({
+        modal: true
+    }),
     computed:{
-        ...mapState(['moka']),
+        ...mapState(['popup']),
         animations(){
             return gsapEffects
         },
         semantic(){
             return this.doc.semantic ? this.doc.semantic : 'div'
         },
+        popup(){
+            if ( this.doc.hasOwnProperty('popup') ){
+                if ( this.doc.popup.trigger ){
+                    //this.doc.css.css.replace('modal','')
+                    this.modal = false
+                } else {
+                    this.modal = true
+                }
+            }
+        }
+    },
+    watch:{
+        '$store.state.popup':function(v){
+            if ( v ){
+                this.modal = true
+                if ( this.doc.hasOwnProperty('gsap') && this.doc.gsap.animation ){
+                    this.animate ( this.doc , this.doc.id )
+                }
+            }
+        }
     },
     methods:{
         /*
@@ -93,6 +118,10 @@ export default {
                             ' background-image:url(' + block.image.url + ');' : ''  : ''        
         },
         */
+        popupClose(){
+            this.modal = false
+            this.$store.dispatch('popup','')
+        },
         animate(element,id){
             let vm = this
             if ( this.$refs && element.hasOwnProperty('gsap') && element.gsap.animation ){
