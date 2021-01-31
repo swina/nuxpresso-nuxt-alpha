@@ -5,7 +5,7 @@ console.log (  'connected to => ' , process.env.API_URL )
 import data from './static/routes.json'
 let dynamicRoutes = () => {
  return new Promise(resolve => {
-   resolve(data.map(el => `articles/${el.slug}`))
+   resolve(data.map(el => `/articles/${el.slug}`))
  })
 }
 export default {
