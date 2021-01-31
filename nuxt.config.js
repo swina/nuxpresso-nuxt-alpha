@@ -122,7 +122,8 @@ export default {
    ** Build configuration
    */
   generate: {
-    routes: dynamicRoutes
+    routes: dynamicRoutes,
+    fallback: true
   },
   build: {
     /*
