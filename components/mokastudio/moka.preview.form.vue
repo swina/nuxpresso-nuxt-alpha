@@ -1,5 +1,8 @@
 <template>
     <form
+        data-netlify="true"
+        data-netlify-recaptcha="true"
+        :name="doc.action"
         @submit.prevent="onSubmit" 
         :id="doc.hasOwnProperty('anchor')? doc.anchor : doc.id"
         v-if="doc"
@@ -125,7 +128,23 @@ export default {
                 vm.response = '<p class="animate-pulse">Sendig your request ...</p>'
                 vm.responseClass = 'text-blue-400'
                 this.enabled = false
-                this.$axios.$post ( 
+                fetch('/', {
+                    method: 'POST',
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams(data).toString()
+                }).then(() => {
+                    console.log('Form successfully submitted')
+                    vm.responseClass = 'text-green-400'
+                    vm.response = vm.doc.success || 'Your form was successfully submitted'
+                    vm.enabled = true
+                    vm.sent = true
+                }).catch((error) => {
+                    vm.sent = false
+                    vm.response = vm.doc.error || 'An error occured. Please retry later.'
+                    vm.responseClass = 'text-red-500'
+                    vm.enabled = true
+                }) 
+                /*this.$axios.$post ( 
                     '/' + vm.doc.action, data ).then ( resp => {
                     vm.responseClass = 'text-green-400'
                     vm.response = vm.doc.success || 'Your form was successfully submitted'
@@ -138,6 +157,7 @@ export default {
                     vm.responseClass = 'text-red-500'
                     vm.enabled = true
                 })
+                */
             } else {
                 let msg = '<ul class="text-sm">'
                 Object.keys(this.requiredError).map ( f => {
